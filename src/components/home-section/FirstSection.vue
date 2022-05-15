@@ -1,8 +1,8 @@
 <template>
-  <div class="background h-screen">
-    <div class="container mx-auto">
-      <div class="flex flex-col sm:flex-row mt-10 ml-10 items-center">
-        <div data-aos="fade-right" class="flex sm:flex-col px-10 py-20 w-1/2">
+  <div class="background flex h-screen">
+    <div class="container m-auto">
+      <div class="flex flex-col sm:flex-row ml-10 items-center">
+        <div data-aos="fade-right" class="flex sm:flex-col px-5 py-10 w-1/2">
           <h1 class="text-cherry text-7xl font-sans font-bold">
             Host The Best <span class="text-indigo">Event</span> Here.
           </h1>

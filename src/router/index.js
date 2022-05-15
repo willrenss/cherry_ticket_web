@@ -16,6 +16,12 @@ const router = new VueRouter({
       component: importComponent("Home"),
     },
     {
+      path: "/login",
+      name: "Login",
+      meta: { title: "Login", transition: "slide-left" },
+      component: importComponent("Login"),
+    },
+    {
       path: "/product",
       name: "Product",
       meta: { title: "Product", transition: "slide-left" },

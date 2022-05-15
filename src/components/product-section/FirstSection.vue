@@ -37,18 +37,12 @@
 </template>
 <script>
 export default {
+  name: "section-1",
   props: {
     route: String,
   },
   data() {
-    return {
-      open: false,
-    };
-  },
-  methods: {
-    toggle() {
-      this.open = !this.open;
-    },
+    return {};
   },
 };
 </script>
@@ -56,9 +50,5 @@ export default {
 <style lang="postcss" scoped>
 .background {
   @apply font-sans w-full h-screen bg-background;
-}
-
-.login {
-  @apply transform hover:scale-110 inline-block px-6 mt-3 sm:mt-1 py-2 bg-cherry font-semibold text-background font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-cherrydark focus:shadow-lg focus:outline-none focus:ring-0 transition delay-150 duration-150 ease-in-out;
 }
 </style>

@@ -51,7 +51,11 @@
           >
             <router-link to="/product">Product</router-link>
           </a>
-          <button type="button" class="login font-sans font-semibold">
+          <button
+            @click="redirectToLogin()"
+            type="button"
+            class="login font-sans font-semibold"
+          >
             Login
           </button>
         </div>
@@ -71,8 +75,8 @@ export default {
     };
   },
   methods: {
-    toggle() {
-      this.open = !this.open;
+    redirectToLogin() {
+      this.$router.push({ path: "/login" });
     },
   },
 };

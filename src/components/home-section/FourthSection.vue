@@ -7,7 +7,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
       background-image: url('https://cherryticket.com/background-home4.png');
     "
   >
-    <div class="container mx-auto">
+    <div class="container m-auto">
       <h1
         data-aos="fade-down"
         class="text-cherry text-center text-7xl font-bold mt-10"
@@ -70,9 +70,6 @@ export default {
   name: "GoogleMap",
   data() {
     return {
-      // default to montreal to keep it simple
-      // -7.780291067500209, 110.41415381466025
-      // change this to whatever makes sense
       markers: { lat: -7.780174137223045, lng: 110.4140357965288 },
     };
   },
@@ -97,9 +94,5 @@ export default {
 <style lang="postcss" scoped>
 .background {
   @apply font-sans w-full h-screen bg-background;
-}
-
-.login {
-  @apply transform hover:scale-110 inline-block px-6 mt-3 sm:mt-1 py-2 bg-cherry font-semibold text-background font-medium text-xs leading-tight uppercase rounded-md shadow-md hover:bg-cherrydark focus:shadow-lg focus:outline-none focus:ring-0 transition delay-150 duration-150 ease-in-out;
 }
 </style>
