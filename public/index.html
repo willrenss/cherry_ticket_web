@@ -1,17 +1,64 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="https://cherryticket.com/logo/cherry_merah.png" />
+    <script
+      src="https://kit.fontawesome.com/1848fa147f.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Cherry Ticket</title>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>
+
+<style>
+  html {
+    scrollbar-width: normal;
+    scrollbar-color: #790604;
+    background-color: #f2f5f7;
+  }
+
+  html::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background-color: #790604;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    background-color: #3f3d56;
+  }
+
+  html::-webkit-scrollbar-track {
+    background-color: #ebcbcb;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 10px;
+  }
+
+  html::-webkit-scrollbar-track:hover {
+    background-color: #ebcbcb;
+
+    opacity: 20%;
+  }
+
+  body {
+    background-color: #333;
+    color: #ccc;
+  }
+</style>
