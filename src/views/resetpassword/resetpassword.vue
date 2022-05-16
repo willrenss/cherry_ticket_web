@@ -8,8 +8,10 @@
       "
     >
       <div class="container m-auto">
-        <div class="m-auto w-2/3 flex flex-row">
-          <div class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl">
+        <div class="m-auto w-full sm:w-2/3 flex flex-row">
+          <div
+            class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl hidden sm:block"
+          >
             <h1 class="text-cherry font-bold text-right text-5xl">
               Create Once <br />
               The Best Event Here !
@@ -18,28 +20,16 @@
               Make Unforgettable Event
             </p>
             <img
-              src="@/assets/gambar/undraw-login.png"
+              src="@/assets/gambar/undraw-register.png"
               class="mt-10"
-              alt="login"
+              alt="register"
             />
           </div>
-          <div class="w-2/5 h-fit bg-white rounded-r-2xl py-24">
+          <div class="w-1/2 h-fit bg-white rounded-r-2xl py-24">
             <h1 class="text-cherry font-extrabold text-center text-5xl">
-              LOGIN
+              Reset Password
             </h1>
             <v-form ref="form" class="px-10 mt-10">
-              <v-text-field
-                outlined
-                dense
-                v-model="email"
-                prepend-inner-icon="mdi-email"
-                name="Email"
-                label="Email"
-                :rules="emailrules"
-                placeholder="Email"
-                type="text"
-                color="indigov"
-              ></v-text-field>
               <v-text-field
                 outlined
                 dense
@@ -47,33 +37,37 @@
                 :type="show ? 'text' : 'password'"
                 :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="show = !show"
-                id="password"
+                label="New Password"
                 color="indigov"
                 placeholder="Password"
                 :rules="passwordrules"
                 prepend-inner-icon="lock"
                 name="password"
-              ></v-text-field>
+              />
+              <v-text-field
+                outlined
+                dense
+                v-model="cpassword"
+                :type="show1 ? 'text' : 'password'"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show1 = !show1"
+                label="Confirm Password"
+                color="indigov"
+                placeholder="Confirm assword"
+                :rules="passwordrules"
+                prepend-inner-icon="lock"
+                name="password"
+              />
             </v-form>
+
             <div class="flex flex-col w-full px-10">
               <button
-                @click="login"
+                @click="update"
                 type="button"
                 class="login font-sans font-semibold m-auto w-full"
               >
-                Login
+                Submit
               </button>
-              <a href="" class="text-xs mt-3 font-medium">
-                <router-link to="/sendemail">Forgot password?</router-link></a
-              >
-              <a href="" class="text-xs mt-3 font-medium">
-                You don't have an account?
-                <router-link to="/register"
-                  ><span class="text-cherry font-bold"
-                    >Sign Up</span
-                  ></router-link
-                ></a
-              >
             </div>
           </div>
         </div>
@@ -82,7 +76,7 @@
     <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
       {{ error_message }}
     </v-snackbar>
-    <v-dialog v-model="load" fullscreen full-width>
+    <v-dialog v-model="load" fullscreen>
       <div class="flex h-screen w-screen bg-black opacity-50">
         <div class="m-auto opacity-100">
           <v-progress-circular indeterminate color="indigov" />
@@ -93,63 +87,56 @@
 </template>
 
 <script>
-import NavigationMenu from "../components/navbar-component/Navbar.vue";
+import NavigationMenu from "../../components/navbar-component/Navbar.vue";
 
 export default {
   components: {
     NavigationMenu,
   },
-  name: "Login",
+  name: "Register",
   data() {
     return {
       load: false,
+      value: 0,
+      query: false,
+      interval: 0,
       show: false,
       color: "",
       error_message: "",
+      show1: false,
+      cpassword: "",
       valid: false,
       snackbar: false,
       password: "",
-      email: "",
-      emailrules: [
-        (v) => !!v || "This Email field is required.",
-        (v) => /.+@.+\..+/.test(v) || "Enter a valid e-mail address",
-      ],
+
       passwordrules: [
-        (v) => !!v || "This field is required.",
+        (v) => !!v || "This Password field is required.",
         (v) => v.length > 7 || "Password minimum 8 characters",
       ],
     };
   },
   methods: {
-    login() {
+    update() {
       if (this.$refs.form.validate()) {
         this.load = true;
         this.$http
-          .post(this.$api + "/login", {
-            email: this.email,
+          .post(this.$api + "/password/reset", {
+            email: this.$route.query.email,
             password: this.password,
+            password_confirmation: this.cpassword,
+            token: this.$route.query.token,
           })
           .then((response) => {
-            localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
-            localStorage.setItem("token", response.data.access_token);
-            localStorage.setItem("role", response.data.role);
-
+            this.load = false;
             this.error_message = response.data.message;
             this.color = "success";
             this.snackbar = true;
-            this.load = false;
           })
           .catch((error) => {
+            this.error_message = error.response.data.error;
             this.load = false;
-            this.error_message = error.response.data.message;
-            this.snackbar = true;
             this.color = "dangerv";
-            if (error.response.data.message == "Please Verify Email") {
-              localStorage.setItem("id", error.response.data.user.id);
-              setTimeout(() => this.$router.push("/verifemail"), 1000);
-            }
-
-            localStorage.removeItem("token");
+            this.snackbar = true;
           });
       }
     },

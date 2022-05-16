@@ -75,12 +75,21 @@ export default {
     };
   },
   methods: {
+    toggle() {
+      this.open = !this.open;
+    },
     redirectToLogin() {
       this.$router.push({ path: "/login" });
     },
   },
 };
 </script>
+
+<style>
+.v-application a {
+  color: #3f3d56;
+}
+</style>
 
 <style lang="postcss" scoped>
 .login {

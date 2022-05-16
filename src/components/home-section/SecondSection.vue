@@ -74,8 +74,6 @@ export default {
   },
   methods: {
     getData() {
-      console.log("Halo");
-      console.log(process.env.VUE_APP_API);
       var url = this.$api + "/datahome";
       this.$http.get(url).then((response) => {
         this.companyValueData[0].value = response.data.data.eo;

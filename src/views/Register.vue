@@ -18,16 +18,28 @@
               Make Unforgettable Event
             </p>
             <img
-              src="@/assets/gambar/undraw-login.png"
+              src="@/assets/gambar/undraw-register.png"
               class="mt-10"
-              alt="login"
+              alt="register"
             />
           </div>
-          <div class="w-2/5 h-fit bg-white rounded-r-2xl py-24">
+          <div class="w-1/2 h-fit bg-white rounded-r-2xl py-24">
             <h1 class="text-cherry font-extrabold text-center text-5xl">
-              LOGIN
+              Sign Up
             </h1>
             <v-form ref="form" class="px-10 mt-10">
+              <v-text-field
+                outlined
+                dense
+                v-model="name"
+                prepend-inner-icon="person"
+                name="Email"
+                label="Full Name"
+                :rules="namerules"
+                placeholder="Full Name"
+                type="text"
+                color="indigov"
+              />
               <v-text-field
                 outlined
                 dense
@@ -39,39 +51,70 @@
                 placeholder="Email"
                 type="text"
                 color="indigov"
-              ></v-text-field>
+              />
               <v-text-field
                 outlined
                 dense
-                v-model="password"
-                :type="show ? 'text' : 'password'"
-                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="show = !show"
-                id="password"
+                v-model="phone"
+                prepend-inner-icon="mdi-phone"
+                label="Number Phone"
+                :rules="telerules"
+                placeholder="Number Phone"
+                type="text"
                 color="indigov"
-                placeholder="Password"
-                :rules="passwordrules"
-                prepend-inner-icon="lock"
-                name="password"
-              ></v-text-field>
+              />
+              <div class="flex flex-row">
+                <v-text-field
+                  class="mr-5"
+                  outlined
+                  dense
+                  v-model="password"
+                  :type="show ? 'text' : 'password'"
+                  :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show = !show"
+                  label="Password"
+                  color="indigov"
+                  placeholder="Password"
+                  :rules="passwordrules"
+                  prepend-inner-icon="lock"
+                  name="password"
+                />
+                <v-text-field
+                  outlined
+                  dense
+                  v-model="cpassword"
+                  :type="show1 ? 'text' : 'password'"
+                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="show1 = !show1"
+                  label="Confirm "
+                  color="indigov"
+                  placeholder="Confirm assword"
+                  :rules="passwordrules"
+                  prepend-inner-icon="lock"
+                  name="password"
+                />
+              </div>
             </v-form>
+
             <div class="flex flex-col w-full px-10">
+              <a href="" class="text-xs font-medium mb-3">
+                By signing up, you confirm that you accept our
+                <span class="text-cherry font-bold">Terms of Use</span>
+                and
+                <span class="text-cherry font-bold"> Privacy Policy.</span>
+              </a>
               <button
-                @click="login"
+                @click="register"
                 type="button"
                 class="login font-sans font-semibold m-auto w-full"
               >
-                Login
+                Sign Up
               </button>
+
               <a href="" class="text-xs mt-3 font-medium">
-                <router-link to="/sendemail">Forgot password?</router-link></a
-              >
-              <a href="" class="text-xs mt-3 font-medium">
-                You don't have an account?
-                <router-link to="/register"
-                  ><span class="text-cherry font-bold"
-                    >Sign Up</span
-                  ></router-link
+                Already have an account?
+                <router-link to="/login"
+                  ><span class="text-cherry font-bold">Login</span></router-link
                 ></a
               >
             </div>
@@ -82,7 +125,7 @@
     <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
       {{ error_message }}
     </v-snackbar>
-    <v-dialog v-model="load" fullscreen full-width>
+    <v-dialog v-model="load" fullscreen>
       <div class="flex h-screen w-screen bg-black opacity-50">
         <div class="m-auto opacity-100">
           <v-progress-circular indeterminate color="indigov" />
@@ -99,56 +142,71 @@ export default {
   components: {
     NavigationMenu,
   },
-  name: "Login",
+  name: "Register",
   data() {
     return {
       load: false,
+      value: 0,
+      query: false,
+      interval: 0,
       show: false,
       color: "",
       error_message: "",
+      show1: false,
+      cpassword: "",
       valid: false,
       snackbar: false,
+      phone: "",
+      name: "",
       password: "",
       email: "",
+      namerules: [(v) => !!v || "This Full Name field is required."],
       emailrules: [
         (v) => !!v || "This Email field is required.",
         (v) => /.+@.+\..+/.test(v) || "Enter a valid e-mail address",
       ],
       passwordrules: [
-        (v) => !!v || "This field is required.",
+        (v) => !!v || "This Password field is required.",
         (v) => v.length > 7 || "Password minimum 8 characters",
+      ],
+      telerules: [
+        (v) => !!v || "This Number Phone field is required.",
+        (v) =>
+          !v || /^08[0-9]{9,10}$/.test(v) || "Enter a valid e-mail address",
       ],
     };
   },
   methods: {
-    login() {
+    register() {
       if (this.$refs.form.validate()) {
         this.load = true;
         this.$http
-          .post(this.$api + "/login", {
+          .post(this.$api + "/eoregister", {
+            nama_eo: this.name,
             email: this.email,
             password: this.password,
+            cpassword: this.cpassword,
+            no_hp: this.phone,
+            role: "EO",
           })
           .then((response) => {
-            localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
-            localStorage.setItem("token", response.data.access_token);
-            localStorage.setItem("role", response.data.role);
-
+            localStorage.setItem("id", response.data.user.id);
+            localStorage.setItem("email", response.data.user.email); //menyimpan id user yang sedang login
+            this.load = false;
             this.error_message = response.data.message;
             this.color = "success";
+            setTimeout(() => this.$router.push("/verifemail"), 1000);
+
             this.snackbar = true;
-            this.load = false;
           })
           .catch((error) => {
-            this.load = false;
             this.error_message = error.response.data.message;
-            this.snackbar = true;
-            this.color = "dangerv";
-            if (error.response.data.message == "Please Verify Email") {
-              localStorage.setItem("id", error.response.data.user.id);
-              setTimeout(() => this.$router.push("/verifemail"), 1000);
+            if (error.response.data.message.email != null) {
+              this.error_message = error.response.data.message.email[0];
             }
-
+            this.load = false;
+            this.color = "dangerv";
+            this.snackbar = true;
             localStorage.removeItem("token");
           });
       }

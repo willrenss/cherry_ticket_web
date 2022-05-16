@@ -6,6 +6,7 @@ import AOS from "aos";
 import axios from "axios";
 import "aos/dist/aos.css";
 import * as VueGoogleMaps from "vue2-google-maps";
+import vuetify from './plugins/vuetify'
 
 Vue.use(VueGoogleMaps, {
   load: {
@@ -21,6 +22,8 @@ new Vue({
   created() {
     AOS.init();
   },
+
   router,
-  render: (h) => h(App),
+  vuetify,
+  render: (h) => h(App)
 }).$mount("#app");
