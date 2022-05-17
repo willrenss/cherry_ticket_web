@@ -7,7 +7,7 @@
         background-image: url('https://cherryticket.com/background-product.png');
       "
     >
-      <div class="container m-auto">
+      <div data-aos="zoom-in" class="container m-auto">
         <div class="m-auto w-full sm:w-2/3 flex flex-row">
           <div
             class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl hidden sm:block"
@@ -73,25 +73,23 @@
         </div>
       </div>
     </div>
-    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
-      {{ error_message }}
-    </v-snackbar>
-    <v-dialog v-model="load" fullscreen>
-      <div class="flex h-screen w-screen bg-black opacity-50">
-        <div class="m-auto opacity-100">
-          <v-progress-circular indeterminate color="indigov" />
-        </div>
-      </div>
-    </v-dialog>
+    <support-dialog
+      :color="color"
+      :progress="load"
+      :snackbar="snackbar"
+      :text="error_message"
+    />
   </v-app>
 </template>
 
 <script>
 import NavigationMenu from "../../components/navbar-component/Navbar.vue";
+import SupportDialog from "../../components/child/ProgressBar.vue";
 
 export default {
   components: {
     NavigationMenu,
+    SupportDialog,
   },
   name: "Register",
   data() {

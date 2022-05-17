@@ -132,8 +132,8 @@
 </template>
 
 <script>
-import NavigationMenu from "../components/navbar-component/Navbar.vue";
-import SupportDialog from "../components/child/ProgressBar.vue";
+import NavigationMenu from "../../components/navbar-component/Navbar.vue";
+import SupportDialog from "../../components/child/ProgressBar.vue";
 export default {
   components: {
     NavigationMenu,

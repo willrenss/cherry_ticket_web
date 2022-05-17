@@ -27,21 +27,17 @@
             <div class="flex flex-col w-ful h-full">
               <div class="flex flex-col m-auto">
                 <h1 class="text-indigo font-extrabold text-left text-5xl mb-5">
-                  Ooopss...
+                  Email Verified
                 </h1>
-                <a href="" class="text-sm font-medium mb-5">
-                  Your account is not verified yet. Please verify your email by
-                  click on a link in your email.
-                  <br />
-                  Doesn’t receive email from us? Please click the button below
-                  to resend verification email.
+                <a href="" class="text-sm text-center font-medium mb-5">
+                  Your Account Verified Now !
                 </a>
                 <button
-                  @click="resend"
+                  @click="login"
                   type="button"
-                  class="login font-sans font-semibold w-1/3"
+                  class="login font-sans m-auto font-semibold w-1/3"
                 >
-                  Resend
+                  Login
                 </button>
               </div>
             </div>
@@ -78,24 +74,8 @@ export default {
     };
   },
   methods: {
-    resend() {
-      this.load = true;
-      this.$http
-        .post(this.$api + "/email/resend", {
-          id: localStorage.getItem("id"),
-        })
-        .then((response) => {
-          this.load = false;
-          this.error_message = response.data.message;
-          this.color = "success";
-          this.snackbar = true;
-        })
-        .catch((error) => {
-          this.error_message = error.response.data;
-          this.load = false;
-          this.color = "dangerv";
-          this.snackbar = true;
-        });
+    login() {
+      this.$router.push("/login");
     },
   },
 };

@@ -11,7 +11,7 @@ module.exports = {
       black: "#000000",
       cherrylight: "#DECDCD",
       divider: "#DBD9D9",
-      white: "#FFFFFF ",
+      white: "#FFFFFF",
       danger: "#c51f1a",
     },
     extend: {},

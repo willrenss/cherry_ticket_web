@@ -7,7 +7,8 @@
         background-image: url('https://cherryticket.com/background-product.png');
       "
     >
-      <div class="container m-auto">
+      :
+      <div data-aos="zoom-in" class="container m-auto">
         <div class="m-auto w-2/3 flex flex-row">
           <div class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl">
             <h1 class="text-cherry font-bold text-right text-5xl">
@@ -79,25 +80,23 @@
         </div>
       </div>
     </div>
-    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
-      {{ error_message }}
-    </v-snackbar>
-    <v-dialog v-model="load" fullscreen full-width>
-      <div class="flex h-screen w-screen bg-black opacity-50">
-        <div class="m-auto opacity-100">
-          <v-progress-circular indeterminate color="indigov" />
-        </div>
-      </div>
-    </v-dialog>
+    <support-dialog
+      :color="color"
+      :progress="load"
+      :snackbar="snackbar"
+      :text="error_message"
+    />
   </v-app>
 </template>
 
 <script>
 import NavigationMenu from "../components/navbar-component/Navbar.vue";
+import SupportDialog from "../components/child/ProgressBar.vue";
 
 export default {
   components: {
     NavigationMenu,
+    SupportDialog,
   },
   name: "Login",
   data() {
@@ -111,7 +110,7 @@ export default {
       password: "",
       email: "",
       emailrules: [
-        (v) => !!v || "This Email field is required.",
+        (v) => !!v || "This Email field is required",
         (v) => /.+@.+\..+/.test(v) || "Enter a valid e-mail address",
       ],
       passwordrules: [
@@ -123,7 +122,7 @@ export default {
   methods: {
     login() {
       if (this.$refs.form.validate()) {
-        this.load = true;
+        this.load = false;
         this.$http
           .post(this.$api + "/login", {
             email: this.email,
@@ -131,13 +130,13 @@ export default {
           })
           .then((response) => {
             localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
-            localStorage.setItem("token", response.data.access_token);
-            localStorage.setItem("role", response.data.role);
-
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("role", response.data.user.role);
             this.error_message = response.data.message;
             this.color = "success";
             this.snackbar = true;
             this.load = false;
+            setTimeout(() => this.$router.replace("/dashboard"), 1000);
           })
           .catch((error) => {
             this.load = false;
@@ -148,7 +147,6 @@ export default {
               localStorage.setItem("id", error.response.data.user.id);
               setTimeout(() => this.$router.push("/verifemail"), 1000);
             }
-
             localStorage.removeItem("token");
           });
       }
