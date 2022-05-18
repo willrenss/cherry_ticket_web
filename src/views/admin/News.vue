@@ -149,7 +149,7 @@
               <v-col>
                 <v-text-field
                   label="Start Date ~ End Date"
-                  v-model="dateRangeText"
+                  :value="dateRangeText"
                   placeholder="Start Date ~ End Date"
                   outlined
                   :rules="daterules"
