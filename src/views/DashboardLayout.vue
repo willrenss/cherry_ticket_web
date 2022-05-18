@@ -1,8 +1,8 @@
 <!-- @format -->
 
 <template>
-  <v-app>
-    <div class="dashboard" style="background-color: #e5e5e5">
+  <v-app class="dashboard">
+    <div style="background-color: #f2f5f7">
       <v-navigation-drawer
         color="cherryv"
         v-model="drawer"
@@ -141,7 +141,7 @@
           @click.stop="drawer = !drawer"
           color="whitev"
         ></v-app-bar-nav-icon>
-        <h3 class="font-bold text-xl text-white">{{ this.$route.name, }}</h3>
+        <h3 class="font-bold text-xl text-white">{{ this.$route.name }}</h3>
         <v-spacer></v-spacer>
         <v-btn router color="whitev" class="mr-5 font-weight-black"
           >Create Event</v-btn
@@ -211,9 +211,9 @@ export default {
           to: "/admin/categoryevent",
           icon: "mdi-hexagon-multiple",
         },
-        { title: "Genre", to: "/admin/genre", icon: "mdi-home" },
+        { title: "Genre", to: "/admin/genre", icon: "mdi-cube" },
         { title: "News", to: "/admin/news", icon: "mdi-newspaper" },
-        { title: "City", to: "/admin/city", icon: "mdi-home" },
+        { title: "City", to: "/admin/city", icon: "mdi-city" },
       ],
     };
   },
@@ -240,3 +240,66 @@ export default {
   },
 };
 </script>
+<style>
+.dashboard {
+  scrollbar-width: normal;
+  scrollbar-color: #790604;
+  background-color: #f2f5f7;
+}
+
+.dashboard::-webkit-scrollbar {
+  width: 10px;
+}
+
+.dashboard::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: #790604;
+}
+
+.dashboard::-webkit-scrollbar-thumb:hover {
+  background-color: #3f3d56;
+}
+
+.dashboard::-webkit-scrollbar-track {
+  background-color: #ebcbcb;
+}
+
+.dashboard::-webkit-scrollbar-track:hover {
+  background-color: #decdcd;
+
+  opacity: 20%;
+}
+
+html {
+  overflow: hidden;
+}
+
+.v-dialog {
+  scrollbar-width: normal;
+  scrollbar-color: #790604;
+  background-color: #f2f5f7;
+}
+
+.v-dialog::-webkit-scrollbar {
+  width: 10px;
+}
+
+.v-dialog::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  background-color: #790604;
+}
+
+.v-dialog::-webkit-scrollbar-thumb:hover {
+  background-color: #3f3d56;
+}
+
+.v-dialog::-webkit-scrollbar-track {
+  background-color: #ebcbcb;
+}
+
+.v-dialog::-webkit-scrollbar-track:hover {
+  background-color: #decdcd;
+
+  opacity: 20%;
+}
+</style>

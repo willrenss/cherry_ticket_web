@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-main class="bg-background">
     <v-card data-aos="zoom-in" class="m-10 rounded-lg">
       <v-card-title>
         <v-text-field
@@ -14,7 +14,7 @@
         </v-text-field>
 
         <v-spacer></v-spacer>
-        <v-btn tile color="indigov" class="whitev--text" @click="showdialogt()"
+        <v-btn color="indigov" class="whitev--text" @click="showdialogt()"
           ><v-icon left>mdi-plus</v-icon>Add Admin</v-btn
         >
       </v-card-title>
@@ -336,6 +336,7 @@ export default {
       this.$refs.form.reset();
     },
     showdialogt() {
+      this.change = true;
       this.dialogform = true;
       this.judul = "Add Admin";
       this.cekaction = "tambah";
