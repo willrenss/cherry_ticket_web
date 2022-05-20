@@ -2,47 +2,53 @@
   <v-app style="background: #f2f5f7">
     <navigation-menu :route="this.$route.name" />
     <div
-      class="bg-background bg-no-repeat flex h-screen bg-right-bottom py-10"
+      class="bg-background bg-no-repeat flex h-full bg-right-bottom"
       style="
         background-image: url('https://cherryticket.com/background-product.png');
       "
     >
-      <div data-aos="zoom-in" class="container m-auto">
-        <div class="m-auto w-2/3 flex flex-row">
-          <div class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl">
-            <h1 class="text-cherry font-bold text-right text-5xl">
-              Create Once <br />
-              The Best Event Here !
-            </h1>
-            <p class="text-cherry text-sm text-right mt-3">
-              Make Unforgettable Event
-            </p>
-            <img
-              src="@/assets/gambar/undraw-register.png"
-              class="mt-10"
-              alt="register"
-            />
-          </div>
-          <div class="w-1/2 h-fit bg-white rounded-r-2xl py-24 px-10">
-            <div class="flex flex-col w-ful h-full">
-              <div class="flex flex-col m-auto">
-                <h1 class="text-indigo font-extrabold text-left text-5xl mb-5">
-                  Ooopss...
-                </h1>
-                <a href="" class="text-sm font-medium mb-5">
-                  Your account is not verified yet. Please verify your email by
-                  click on a link in your email.
-                  <br />
-                  Doesn’t receive email from us? Please click the button below
-                  to resend verification email.
-                </a>
-                <button
-                  @click="resend"
-                  type="button"
-                  class="login font-sans font-semibold w-1/3"
-                >
-                  Resend
-                </button>
+      <div class="flex w-1/2">
+        <div data-aos="zoom-in" class="m-auto">
+          <div class="m-auto w-2/3 h-fit flex flex-row">
+            <div class="w-3/5 bg-cherrylight px-10 py-5 rounded-l-2xl">
+              <h1 class="text-cherry font-bold text-right text-5xl">
+                Create Once <br />
+                The Best Event Here !
+              </h1>
+              <p class="text-cherry text-sm text-right mt-3">
+                Make Unforgettable Event
+              </p>
+              <img
+                src="@/assets/gambar/undraw-register.png"
+                class="mt-10"
+                alt="register"
+              />
+            </div>
+            <div
+              class="w-2/5 h-fit bg-white rounded-r-2xl py-10 px-10 flex flex-col"
+            >
+              <div class="m-auto">
+                <div class="flex flex-col">
+                  <h1
+                    class="text-indigo font-extrabold text-left text-5xl mb-5"
+                  >
+                    Ooopss...
+                  </h1>
+                  <a href="" class="text-sm font-medium mb-5">
+                    Your account is not verified yet. Please verify your email
+                    by click on a link in your email.
+                    <br />
+                    Doesn’t receive email from us? Please click the button below
+                    to resend verification email.
+                  </a>
+                  <button
+                    @click="resend"
+                    type="button"
+                    class="login font-sans font-semibold w-1/3"
+                  >
+                    Resend
+                  </button>
+                </div>
               </div>
             </div>
           </div>

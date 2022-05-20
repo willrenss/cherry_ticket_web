@@ -25,7 +25,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
             <p class="text-cherry mt-3 text-2xl font-extrabold">
               Cherry Ticket
             </p>
-            <p class="text-cherry mt-5 text-lg font-bold">Address</p>
+            <p class="text-cherry mt-2 text-lg font-bold">Address</p>
             <p class="text-cherry text-md text-right font-semibold">
               Jl. Babarsari No.44, Janti, Caturtunggal, Kec. Depok, Kabupaten
               Sleman, Daerah Istimewa Yogyakarta 55281

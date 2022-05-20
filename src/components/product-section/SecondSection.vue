@@ -2,7 +2,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
 
 <template>
   <div class="background h-screen">
-    <div class="container mx-auto mt-10">
+    <div class="mx-auto mt-10">
       <h1
         data-aos="fade-down"
         class="text-cherry text-center text-7xl font-sans font-bold"

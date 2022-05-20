@@ -1,12 +1,12 @@
 <template>
   <div
-    class="background h-screen bg-no-repeat bg-right-bottom"
+    class="background h-full flex bg-no-repeat bg-right-bottom"
     style="
       background-image: url('https://cherryticket.com/background-product.png');
     "
   >
-    <div class="container mx-auto">
-      <div class="flex flex-col sm:flex-row mt-20 ml-10 items-center">
+    <div class="m-auto">
+      <div class="flex flex-col sm:flex-row ml-10 items-center">
         <div data-aos="fade-left" class="px-10 w-1/2 hidden sm:block">
           <img src="@/assets/gambar/undraw-product.png" alt="home" />
         </div>

@@ -6,8 +6,8 @@
         background-image: url('https://cherryticket.com/background-home2.png');
       "
     >
-      <div class="container m-auto items-center">
-        <div class="flex sm:flex-row mt-10 items-center">
+      <div class="m-auto items-center">
+        <div class="flex sm:flex-row mt-5 items-center">
           <div class="flex-5 px-20 py-20 w-full">
             <h1
               data-aos="fade-right"

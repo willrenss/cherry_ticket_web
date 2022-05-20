@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-  <v-main> <div>test</div></v-main>
+  <v-main> <div></div></v-main>
 </template>
 <script>
 export default {
@@ -11,7 +11,10 @@ export default {
   },
   methods: {},
 
-  mounted() {},
+  mounted() {
+    if (localStorage.getItem("role") == "Admin")
+      this.$router.replace("/admin/manajemenadmin");
+  },
   computed: {},
 };
 </script>

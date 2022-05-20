@@ -232,11 +232,17 @@ export default {
     },
   },
   mounted() {
-    this.items = [
-      { title: "Home", to: "/dashboard", icon: "mdi-home" },
-      { title: "Admin", to: "/admin", icon: "mdi-account-tie" },
-      { title: "Event", to: "/event", icon: "mdi-calendar-multiple" },
-    ];
+    if (localStorage.getItem("role") == "Admin") {
+      this.items = [
+        { title: "Admin", to: "/admin", icon: "mdi-account-tie" },
+        { title: "Event", to: "/event", icon: "mdi-calendar-multiple" },
+      ];
+    } else {
+      this.items = [
+        { title: "Home", to: "/dashboard", icon: "mdi-home" },
+        { title: "Event", to: "/event", icon: "mdi-calendar-multiple" },
+      ];
+    }
   },
 };
 </script>

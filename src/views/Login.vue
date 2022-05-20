@@ -2,14 +2,14 @@
   <v-app style="background: #f2f5f7">
     <navigation-menu :route="this.$route.name" />
     <div
-      class="bg-background bg-no-repeat flex h-screen bg-right-bottom py-10"
+      class="bg-background bg-no-repeat flex h-full bg-right-bottom py-5"
       style="
         background-image: url('https://cherryticket.com/background-product.png');
       "
     >
       :
-      <div data-aos="zoom-in" class="container m-auto">
-        <div class="m-auto w-2/3 flex flex-row">
+      <div data-aos="zoom-in" class="m-auto">
+        <div class="m-auto w-5/6 flex flex-row">
           <div class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl">
             <h1 class="text-cherry font-bold text-right text-5xl">
               Create Once <br />
@@ -129,14 +129,33 @@ export default {
             password: this.password,
           })
           .then((response) => {
-            localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
-            localStorage.setItem("token", response.data.token);
-            localStorage.setItem("role", response.data.user.role);
-            this.error_message = response.data.message;
-            this.color = "success";
-            this.snackbar = true;
-            this.load = false;
-            setTimeout(() => this.$router.replace("/dashboard"), 1000);
+            if (response.data.user.role == "Admin") {
+              localStorage.setItem("idadmin", response.data.user.ID_ADMIN);
+              this.error_message = response.data.message;
+              this.color = "success";
+              this.snackbar = true;
+              this.load = false;
+              localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
+              localStorage.setItem("token", response.data.token);
+              localStorage.setItem("role", response.data.user.role);
+              setTimeout(() => this.$router.push("/dashboard"), 500);
+            } else if (response.data.user.role == "EO") {
+              localStorage.setItem("ideo", response.data.user.ID_EO);
+              this.error_message = response.data.message;
+              this.color = "success";
+              this.snackbar = true;
+              this.load = false;
+              localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
+              localStorage.setItem("token", response.data.token);
+              localStorage.setItem("role", response.data.user.role);
+              setTimeout(() => this.$router.push("/dashboard"), 500);
+            } else {
+              this.error_message = "Using Apps Mobile";
+              this.color = "dangerv";
+              this.snackbar = true;
+              this.load = false;
+              setTimeout(() => this.$router.push("/product"), 500);
+            }
           })
           .catch((error) => {
             this.load = false;
@@ -145,7 +164,7 @@ export default {
             this.color = "dangerv";
             if (error.response.data.message == "Please Verify Email") {
               localStorage.setItem("id", error.response.data.user.id);
-              setTimeout(() => this.$router.push("/verifemail"), 1000);
+              setTimeout(() => this.$router.push("/verifemail"), 500);
             }
             localStorage.removeItem("token");
           });

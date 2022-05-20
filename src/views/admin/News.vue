@@ -28,23 +28,7 @@
         <template v-slot:[`item.Admin`]="{ item }">
           {{ item.admin.NAMA_DEPAN }} {{ item.admin.NAMA_BELAKANG }}</template
         >
-        <template v-slot:[`item.NEWS`]="{ item }">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                icon
-                small
-                class="mr-2"
-                v-bind="attrs"
-                v-on="on"
-                @click="showgambar(item.GAMBAR_BERITA)"
-              >
-                <v-icon color="deep-orange darken-4">mdi-image-area</v-icon>
-              </v-btn>
-            </template>
-            <span>Show News</span>
-          </v-tooltip></template
-        >
+
         <template v-slot:[`item.actions`]="{ item }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
@@ -70,7 +54,7 @@
                 class="mr-2"
                 v-bind="attrs"
                 v-on="on"
-                @click="showdialogh(item.ID_KOTA)"
+                @click="showdialogh(item.ID_BERITA)"
               >
                 <v-icon color="dangerv">mdi-delete</v-icon>
               </v-btn>
@@ -145,34 +129,10 @@
         </v-toolbar>
         <v-card-text>
           <v-form ref="form" lazy-validation>
-            <v-row class="mt-10">
-              <v-col>
-                <v-text-field
-                  label="Start Date ~ End Date"
-                  :value="dateRangeText"
-                  placeholder="Start Date ~ End Date"
-                  outlined
-                  :rules="daterules"
-                  readonly
-                  color="indigov"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <v-date-picker
-                  scrollable
-                  :show-current="false"
-                  no-title
-                  dark
-                  header-color="indigov"
-                  color="cherryv"
-                  v-model="datenews"
-                  @change="dateinit(datenews)"
-                  full-width
-                  range
-                ></v-date-picker>
-              </v-col>
+            <v-row class="mt-10 px-3">
+              <p class="text-indigo text-xl font-semibold opacity-80">
+                Upload News Picture:
+              </p>
             </v-row>
             <v-row>
               <div class="flex justify-center">
@@ -188,7 +148,6 @@
                         >.png .jpg</label
                       >
                     </div>
-
                     <div class="flex items-center justify-center w-full">
                       <label
                         v-if="uploadimage == null"
@@ -243,7 +202,14 @@
                         class="h-full"
                       >
                         <div class="flex flex-col mt-3">
-                          <img :src="uploadimage" alt="Upload" />
+                          <div class="flex w-full">
+                            <img
+                              :src="uploadimage"
+                              alt="Upload"
+                              class="w-1/2 m-auto"
+                            />
+                          </div>
+
                           <div class="w-fit flex">
                             <v-btn
                               color="indigov"
@@ -266,8 +232,52 @@
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </div></div
+            ></v-row>
+            <v-row class="mt-10">
+              <p class="text-indigo text-xl font-semibold opacity-80 px-3">
+                Choose range news for show on app:
+              </p>
+            </v-row>
+            <v-row class="px-3">
+              <v-text-field
+                label="Start Date ~ End Date"
+                :value="dateRangeText"
+                placeholder="Start Date ~ End Date"
+                outlined
+                :rules="daterules"
+                readonly
+                color="indigov"
+              ></v-text-field>
+            </v-row>
+            <v-row class="px-3">
+              <v-date-picker
+                scrollable
+                :show-current="false"
+                no-title
+                dark
+                header-color="indigov"
+                color="cherryv"
+                v-model="datenews"
+                @change="dateinit(datenews)"
+                full-width
+                range
+              ></v-date-picker>
+            </v-row>
+            <v-row class="px-3 mt-10">
+              <v-text-field
+                label="Title News"
+                v-model="form.JUDUL"
+                placeholder="Title News"
+                outlined
+                :rules="rules"
+                color="indigov"
+              ></v-text-field>
+            </v-row>
+            <v-row>
+              <v-col>
+                <tip-tap :getData="form.DESKRIPSI" @getContent="getDataChild" />
+              </v-col>
             </v-row>
           </v-form>
         </v-card-text>
@@ -297,9 +307,10 @@
     </v-snackbar>
   </v-main>
 </template>
-
 <script>
+import TipTap from "../../components/child/Titptap.vue";
 export default {
+  components: { TipTap },
   data() {
     return {
       judul: "",
@@ -322,7 +333,7 @@ export default {
       rules: [(v) => !!v || "This field is required"],
       daterules: [
         (v) => !!v || "This field is required",
-        (v) => (!!v && this.datenews[1] != null) || "Select End Date",
+        (v) => (!!v && this.datenews[1] != null) || "Select one more date",
       ],
       show1: false,
       show2: false,
@@ -339,10 +350,7 @@ export default {
       dialoggambar: false,
       id_data: null,
       form: {
-        TGL_MULAI: "",
-        TGL_SELESAI: "",
         JUDUL: "",
-        ID_ADMIN: "",
         DESKRIPSI: "",
         GAMBAR_BERITA: null,
       },
@@ -360,7 +368,7 @@ export default {
           value: "Admin",
         },
 
-        { text: "NEWS", value: "NEWS" },
+        { text: "NEWS", value: "JUDUL" },
         { text: "Actions", value: "actions" },
       ],
     };
@@ -385,10 +393,10 @@ export default {
         var url = this.$api + "/berita";
         this.news.append("judul", this.form.JUDUL),
           this.news.append("gambar_berita", this.form.GAMBAR_BERITA),
-          this.news.append("tgl_mulai", this.form.TGL_MULAI),
-          this.news.append("tgl_selesai", this.form.TGL_SELESAI),
+          this.news.append("tgl_mulai", this.datenews[0]),
+          this.news.append("tgl_selesai", this.datenews[1]),
           this.news.append("deskripsi", this.form.DESKRIPSI),
-          this.news.append("id_admin", this.form.ID_ADMIN),
+          this.news.append("id_admin", localStorage.getItem("idadmin")),
           this.$http
             .post(url, this.news, {
               headers: {
@@ -426,6 +434,8 @@ export default {
       this.show1 = false;
       this.change = false;
       this.show2 = false;
+      this.datenews = [];
+      this.momentdate = [];
       this.$refs.form.reset();
       this.uploadimage = null;
     },
@@ -443,7 +453,7 @@ export default {
       this.dialogform = true;
       this.judul = "Edit News";
       this.cekaction = "edit";
-      this.id_data = item.ID_KOTA;
+      this.id_data = item.ID_BERITA;
       var url = this.$api + "/berita/" + this.id_data;
       this.$http
         .get(url, {
@@ -452,7 +462,14 @@ export default {
           },
         })
         .then((response) => {
-          this.form.NAMA_KOTA = response.data.data.NAMA_KOTA;
+          this.datenews[0] = response.data.data.TGL_MULAI;
+          this.datenews[1] = response.data.data.TGL_SELESAI;
+          this.form.DESKRIPSI = response.data.data.DESKRIPSI;
+          this.momentdate = [
+            this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY"),
+            this.$moment(this.datenews[1]).format("dddd, MMMM D YYYY"),
+          ];
+          this.form.JUDUL = response.data.data.JUDUL;
           this.uploadimage =
             this.$image + "/GambarBerita/" + response.data.data.GAMBAR_BERITA;
         });
@@ -462,10 +479,10 @@ export default {
         var url = this.$api + "/berita/" + this.id_data;
         this.news.append("judul", this.form.JUDUL),
           this.news.append("gambar_berita", this.form.GAMBAR_BERITA),
-          this.news.append("tgl_mulai", this.form.TGL_MULAI),
-          this.news.append("tgl_selesai", this.form.TGL_SELESAI),
+          this.news.append("tgl_mulai", this.datenews[0]),
+          this.news.append("tgl_selesai", this.datenews[1]),
           this.news.append("deskripsi", this.form.DESKRIPSI),
-          this.news.append("id_admin", this.form.ID_ADMIN),
+          this.news.append("id_admin", localStorage.getItem("idadmin")),
           this.$http
             .post(url, this.news, {
               headers: {
@@ -481,9 +498,6 @@ export default {
             })
             .catch((error) => {
               this.error_message = error.response.data.message;
-              if (error.response.data.message.nama_kota != null) {
-                this.error_message = "The news name already taken";
-              }
               this.color = "red";
               this.snackbar = true;
             });
@@ -543,6 +557,9 @@ export default {
     formatTanggal(value) {
       return this.$moment(value, "YYYY/MM/DD").format("DD MMM YYYY");
     },
+    getDataChild({ content }) {
+      this.form.DESKRIPSI = content;
+    },
   },
   mounted() {
     this.readData();
@@ -556,3 +573,46 @@ export default {
   },
 };
 </script>
+
+<style>
+h1 {
+  display: block;
+  font-size: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-top: 0.83em;
+  margin-bottom: 0.83em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+h3 {
+  display: block;
+  font-size: 1.17em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+p {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+}
+ul li {
+  list-style-type: disc;
+}
+ol.alpha {
+  list-style-type: lower-alpha;
+}
+</style>

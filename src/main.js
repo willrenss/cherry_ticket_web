@@ -9,10 +9,20 @@ import * as VueGoogleMaps from "vue2-google-maps";
 import vuetify from "./plugins/vuetify";
 import VueMoment from "vue-moment";
 import moment from "moment-timezone";
+import { TiptapVuetifyPlugin } from "tiptap-vuetify";
+// don't forget to import CSS styles
+import "tiptap-vuetify/dist/main.css";
+import "vuetify/dist/vuetify.min.css";
+
+Vue.use(TiptapVuetifyPlugin, {
+  vuetify, // same as "vuetify: vuetify"
+  iconsGroup: "mdi",
+});
 
 Vue.use(VueMoment, {
   moment,
 });
+
 moment.tz.guess();
 Vue.use(VueGoogleMaps, {
   load: {

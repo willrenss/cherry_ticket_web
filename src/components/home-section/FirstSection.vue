@@ -1,6 +1,6 @@
 <template>
   <div class="background flex h-screen">
-    <div class="container m-auto">
+    <div class="m-auto">
       <div class="flex flex-col sm:flex-row ml-10 items-center">
         <div data-aos="fade-right" class="flex sm:flex-col px-5 py-10 w-1/2">
           <h1 class="text-cherry text-7xl font-sans font-bold">
@@ -18,7 +18,7 @@
             </button>
           </div>
         </div>
-        <div data-aos="fade-left" class="px-10 py-10 w-1/2 hidden sm:block">
+        <div data-aos="fade-left" class="px-10 pl-20 w-1/2 hidden sm:block">
           <img src="@/assets/gambar/undraw-home.png" alt="home.png" />
         </div>
       </div>

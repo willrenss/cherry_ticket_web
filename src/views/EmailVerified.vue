@@ -7,8 +7,8 @@
         background-image: url('https://cherryticket.com/background-product.png');
       "
     >
-      <div data-aos="zoom-in" class="container m-auto">
-        <div class="m-auto w-2/3 flex flex-row">
+      <div data-aos="zoom-in" class="m-auto">
+        <div class="m-auto w-4/5 flex flex-row">
           <div class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl">
             <h1 class="text-cherry font-bold text-right text-5xl">
               Create Once <br />
@@ -24,9 +24,11 @@
             />
           </div>
           <div class="w-1/2 h-fit bg-white rounded-r-2xl py-24 px-10">
-            <div class="flex flex-col w-ful h-full">
+            <div class="flex flex-col w-full h-full">
               <div class="flex flex-col m-auto">
-                <h1 class="text-indigo font-extrabold text-left text-5xl mb-5">
+                <h1
+                  class="text-indigo font-extrabold text-left text-5xl mb-5 m-auto"
+                >
                   Email Verified
                 </h1>
                 <a href="" class="text-sm text-center font-medium mb-5">

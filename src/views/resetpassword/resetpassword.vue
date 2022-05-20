@@ -2,72 +2,74 @@
   <v-app style="background: #f2f5f7">
     <navigation-menu :route="this.$route.name" />
     <div
-      class="bg-background bg-no-repeat flex h-screen bg-right-bottom py-10"
+      class="bg-background bg-no-repeat flex h-full bg-right-bottom py-10"
       style="
         background-image: url('https://cherryticket.com/background-product.png');
       "
     >
-      <div data-aos="zoom-in" class="container m-auto">
-        <div class="m-auto w-full sm:w-2/3 flex flex-row">
-          <div
-            class="w-3/5 bg-cherrylight px-10 py-10 rounded-l-2xl hidden sm:block"
-          >
-            <h1 class="text-cherry font-bold text-right text-5xl">
-              Create Once <br />
-              The Best Event Here !
-            </h1>
-            <p class="text-cherry text-sm text-right mt-3">
-              Make Unforgettable Event
-            </p>
-            <img
-              src="@/assets/gambar/undraw-register.png"
-              class="mt-10"
-              alt="register"
-            />
-          </div>
-          <div class="w-1/2 h-fit bg-white rounded-r-2xl py-24">
-            <h1 class="text-cherry font-extrabold text-center text-5xl">
-              Reset Password
-            </h1>
-            <v-form ref="form" class="px-10 mt-10">
-              <v-text-field
-                outlined
-                dense
-                v-model="password"
-                :type="show ? 'text' : 'password'"
-                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="show = !show"
-                label="New Password"
-                color="indigov"
-                placeholder="Password"
-                :rules="passwordrules"
-                prepend-inner-icon="lock"
-                name="password"
+      <div class="flex w-full">
+        <div data-aos="zoom-in" class="mx-auto">
+          <div class="m-auto w-5/6 h-fit flex flex-row">
+            <div class="w-3/5 bg-cherrylight px-10 py-5 rounded-l-2xl">
+              <h1 class="text-cherry font-bold text-right text-5xl">
+                Create Once <br />
+                The Best Event Here !
+              </h1>
+              <p class="text-cherry text-sm text-right mt-3">
+                Make Unforgettable Event
+              </p>
+              <img
+                src="@/assets/gambar/undraw-register.png"
+                class="mt-10"
+                alt="register"
               />
-              <v-text-field
-                outlined
-                dense
-                v-model="cpassword"
-                :type="show1 ? 'text' : 'password'"
-                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                @click:append="show1 = !show1"
-                label="Confirm Password"
-                color="indigov"
-                placeholder="Confirm assword"
-                :rules="passwordrules"
-                prepend-inner-icon="lock"
-                name="password"
-              />
-            </v-form>
+            </div>
+            <div class="w-2/3 h-fit flex flex-col bg-white rounded-r-2xl py-24">
+              <div class="m-auto">
+                <h1 class="text-cherry font-extrabold text-center text-5xl">
+                  Reset Password
+                </h1>
+                <v-form ref="form" class="mt-10">
+                  <v-text-field
+                    outlined
+                    dense
+                    v-model="password"
+                    :type="show ? 'text' : 'password'"
+                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="show = !show"
+                    label="New Password"
+                    color="indigov"
+                    placeholder="Password"
+                    :rules="passwordrules"
+                    prepend-inner-icon="lock"
+                    name="password"
+                  />
+                  <v-text-field
+                    outlined
+                    dense
+                    v-model="cpassword"
+                    :type="show1 ? 'text' : 'password'"
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    @click:append="show1 = !show1"
+                    label="Confirm Password"
+                    color="indigov"
+                    placeholder="Confirm assword"
+                    :rules="passwordrules"
+                    prepend-inner-icon="lock"
+                    name="password"
+                  />
+                </v-form>
 
-            <div class="flex flex-col w-full px-10">
-              <button
-                @click="update"
-                type="button"
-                class="login font-sans font-semibold m-auto w-full"
-              >
-                Submit
-              </button>
+                <div class="flex flex-col w-full px-10">
+                  <button
+                    @click="update"
+                    type="button"
+                    class="login font-sans font-semibold m-auto w-full"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
