@@ -25,7 +25,7 @@ const router = new VueRouter({
           component: importComponent("Dashboard"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
           },
         },
         {
@@ -35,7 +35,7 @@ const router = new VueRouter({
           component: importComponent("admin/Admin"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
           },
         },
         {
@@ -45,7 +45,7 @@ const router = new VueRouter({
           component: importComponent("admin/CreateAdmin"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
           },
         },
         {
@@ -55,7 +55,7 @@ const router = new VueRouter({
           component: importComponent("admin/CategoryEvent"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
           },
         },
         {
@@ -65,7 +65,7 @@ const router = new VueRouter({
           component: importComponent("admin/Genre"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
           },
         },
         {
@@ -75,7 +75,7 @@ const router = new VueRouter({
           component: importComponent("admin/City"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
           },
         },
         {
@@ -85,17 +85,77 @@ const router = new VueRouter({
           component: importComponent("admin/News"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
           },
         },
         {
           path: "/event",
           name: "Event",
-          meta: { title: "Event" },
+          meta: { title: "Event Dashboard" },
           component: importComponent("eo/Event"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
-            else next("/");
+            else next("/login");
+          },
+        },
+        {
+          path: "/event/profileevent",
+          name: "Profile Event",
+          meta: { title: "Event" },
+          component: importComponent("eo/ProfileEvent"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
+        {
+          path: "/event/dataparticipant",
+          name: "Data Participant",
+          meta: { title: "Event" },
+          component: importComponent("eo/DataParticipant"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
+        {
+          path: "/event/form",
+          name: "Form",
+          meta: { title: "Event" },
+          component: importComponent("eo/Form"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
+        {
+          path: "/event/transaction",
+          name: "Transaction",
+          meta: { title: "Event" },
+          component: importComponent("eo/Transaction"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
+        {
+          path: "/event/certificate",
+          name: "Certificate",
+          meta: { title: "Event" },
+          component: importComponent("eo/Certificate"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
+        {
+          path: "/event/qna",
+          name: "QnA",
+          meta: { title: "Event" },
+          component: importComponent("eo/Qna"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
           },
         },
       ],
@@ -108,6 +168,16 @@ const router = new VueRouter({
       beforeEnter: (to, from, next) => {
         if (!localStorage.getItem("id")) next();
         else next("/dashboard");
+      },
+    },
+    {
+      path: "/createevent/:id",
+      name: "Create Event",
+      meta: { title: "Create Event", transition: "slide-left" },
+      component: importComponent("eo/CreateEvent"),
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem("ideo")) next();
+        else next("/");
       },
     },
     {

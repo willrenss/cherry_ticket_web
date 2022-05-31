@@ -80,23 +80,18 @@
         </div>
       </div>
     </div>
-    <support-dialog
-      :color="color"
-      :progress="load"
-      :snackbar="snackbar"
-      :text="error_message"
-    />
+    <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
+      {{ error_message }}
+    </v-snackbar>
   </v-app>
 </template>
 
 <script>
 import NavigationMenu from "../components/navbar-component/Navbar.vue";
-import SupportDialog from "../components/child/ProgressBar.vue";
 
 export default {
   components: {
     NavigationMenu,
-    SupportDialog,
   },
   name: "Login",
   data() {
@@ -107,8 +102,8 @@ export default {
       error_message: "",
       valid: false,
       snackbar: false,
-      password: "",
-      email: "",
+      password: null,
+      email: null,
       emailrules: [
         (v) => !!v || "This Email field is required",
         (v) => /.+@.+\..+/.test(v) || "Enter a valid e-mail address",

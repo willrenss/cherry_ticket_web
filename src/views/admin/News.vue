@@ -253,12 +253,12 @@
             <v-row class="px-3">
               <v-date-picker
                 scrollable
-                :show-current="false"
-                no-title
                 dark
                 header-color="indigov"
-                color="cherryv"
                 v-model="datenews"
+                no-title
+                :show-current="false"
+                color="cherryv"
                 @change="dateinit(datenews)"
                 full-width
                 range
@@ -308,7 +308,7 @@
   </v-main>
 </template>
 <script>
-import TipTap from "../../components/child/Titptap.vue";
+import TipTap from "../../components/child/TipTap.vue";
 export default {
   components: { TipTap },
   data() {
@@ -350,8 +350,8 @@ export default {
       dialoggambar: false,
       id_data: null,
       form: {
-        JUDUL: "",
-        DESKRIPSI: "",
+        JUDUL: null,
+        DESKRIPSI: null,
         GAMBAR_BERITA: null,
       },
       headers: [

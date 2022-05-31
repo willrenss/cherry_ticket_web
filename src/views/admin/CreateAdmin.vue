@@ -263,13 +263,13 @@ export default {
       dialogform: false,
       id_admin: null,
       form: {
-        NAMA_DEPAN: "",
-        NAMA_BELAKANG: "",
-        email: "",
-        no_hp: "",
-        GENDER: "",
-        password: "",
-        cpassword: "",
+        NAMA_DEPAN: null,
+        NAMA_BELAKANG: null,
+        email: null,
+        no_hp: null,
+        GENDER: null,
+        password: null,
+        cpassword: null,
       },
       headers: [
         {
@@ -385,6 +385,9 @@ export default {
           })
           .catch((error) => {
             this.error_message = error.response.data.message;
+            if (error.response.data.message.email != null) {
+              this.error_message = error.response.data.message.email[0];
+            }
             this.color = "red";
             this.snackbar = true;
           });

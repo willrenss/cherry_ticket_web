@@ -1,6 +1,6 @@
 <template>
-  <v-main class="bg-background">
-    <v-card data-aos="zoom-in" class="m-10 rounded-lg">
+  <v-main class="bg-background pt-2 pt-sm-2 pt-xs-2 pt-md-0 pt-lg-0 pt-xl-0">
+    <v-card class="rounded-lg">
       <v-card-title>
         <v-text-field
           dense
@@ -163,6 +163,9 @@
 
 <script>
 export default {
+  props: {
+    id_event: String,
+  },
   data() {
     return {
       judul: "",

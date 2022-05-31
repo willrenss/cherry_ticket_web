@@ -307,7 +307,7 @@ export default {
       dialoggambar: false,
       id_data: null,
       form: {
-        NAMA_KOTA: "",
+        NAMA_KOTA: null,
         GAMBAR_KOTA: null,
       },
       headers: [

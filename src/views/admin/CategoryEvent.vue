@@ -330,9 +330,9 @@ export default {
       dialoggambar: false,
       id_data: null,
       form: {
-        NAMA_JENIS: "",
+        NAMA_JENIS: null,
         GAMBAR: null,
-        STATUS: "",
+        STATUS: null,
       },
       headers: [
         {
