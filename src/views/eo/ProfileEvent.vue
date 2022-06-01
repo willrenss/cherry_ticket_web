@@ -550,6 +550,7 @@ export default {
       error_message: null,
       income: 0,
       color: null,
+      komentar: null,
       tiket: null,
       tiketjumlah: null,
       dialogreject: false,

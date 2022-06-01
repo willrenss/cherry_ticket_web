@@ -4,6 +4,12 @@
       <h3 class="font-bold text-xl text-white">Create Event</h3>
       <v-spacer></v-spacer>
       <v-btn router color="whitev" class="mr-5 font-weight-black">Demo</v-btn>
+      <v-btn
+        color="cherryv"
+        class="mr-5 font-weight-black whitev--text"
+        @click="saveEvent()"
+        >Save Event</v-btn
+      >
       <v-toolbar-items>
         <v-menu offset-y :close-on-click="closeOnClick">
           <template v-slot:activator="{ on, attrs }">
@@ -61,7 +67,6 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     :value="formatTanggal(form.TGL_MULAI)"
-                    clearable
                     placeholder="Start Date Publish"
                     label="Start Date Publish"
                     readonly
@@ -73,7 +78,6 @@
                     background-color="white"
                     v-bind="attrs"
                     v-on="on"
-                    @click:clear="date = null"
                   ></v-text-field>
                 </template>
                 <v-date-picker
@@ -95,7 +99,6 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     :value="formatTanggal(form.TGL_SELESAI)"
-                    clearable
                     placeholder="End Date Publish"
                     label="End Date Publish"
                     readonly
@@ -107,7 +110,6 @@
                     background-color="white"
                     v-bind="attrs"
                     v-on="on"
-                    @click:clear="date = null"
                   ></v-text-field>
                 </template>
                 <v-date-picker
@@ -157,7 +159,6 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                     :value="formatTanggal(form.TGL_ACARA_MULAI)"
-                    clearable
                     placeholder="Start Date Event"
                     label="Start Date Event"
                     readonly
@@ -169,7 +170,6 @@
                     background-color="white"
                     v-bind="attrs"
                     v-on="on"
-                    @click:clear="date = null"
                   ></v-text-field>
                 </template>
                 <v-date-picker
@@ -213,6 +213,86 @@
                   :show-current="false"
                   color="cherryv"
                 ></v-date-picker>
+              </v-menu>
+            </v-col>
+          </v-row>
+          <v-row dense>
+            <v-col class="sm-6">
+              <v-menu
+                ref="waktumulai"
+                v-model="waktumulai"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="form.WAKTU_MULAI"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    :value="formatWaktu(form.WAKTU_MULAI)"
+                    placeholder="Start Time Event"
+                    label="Start Time Event"
+                    readonly
+                    outlined
+                    :rules="rules"
+                    color="indigov"
+                    filled
+                    dense
+                    background-color="white"
+                    v-bind="attrs"
+                    v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="waktumulai"
+                  v-model="form.WAKTU_MULAI"
+                  header-color="cherryv"
+                  color="cherryv"
+                  full-width
+                  @click:minute="$refs.waktumulai.save(form.WAKTU_MULAI)"
+                ></v-time-picker>
+              </v-menu>
+            </v-col>
+            <v-col class="sm-6">
+              <v-menu
+                ref="waktuselesai"
+                v-model="waktuselesai"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="form.WAKTU_SELESAI"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                    :value="formatWaktu(form.WAKTU_SELESAI)"
+                    placeholder="End Time Event"
+                    label="End Time Event"
+                    readonly
+                    :disabled="form.WAKTU_MULAI != null ? false : true"
+                    outlined
+                    :rules="timerulesacaraselesai"
+                    color="indigov"
+                    filled
+                    dense
+                    background-color="white"
+                    v-bind="attrs"
+                    v-on="on"
+                    @click:clear="date = null"
+                  ></v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="waktuselesai"
+                  v-model="form.WAKTU_SELESAI"
+                  full-width
+                  header-color="cherryv"
+                  color="cherryv"
+                  @click:minute="$refs.waktuselesai.save(form.WAKTU_SELESAI)"
+                ></v-time-picker>
               </v-menu>
             </v-col>
           </v-row>
@@ -411,25 +491,30 @@
                 color="cherryv"
                 :grow="true"
               >
-                <v-tab>Description</v-tab>
-                <v-tab>Term And Conditions</v-tab>
-                <v-tab-item class="py-5 px-2 bg-background">
-                  <tip-tap
-                    :getData="form.DESKRIPSI"
-                    @getContent="getDataDeskripsi"
-                  />
-                </v-tab-item>
-                <v-tab-item class="py-5 px-2 bg-background">
-                  <tip-tap :getData="form.SYARAT" @getContent="getDataSyarat" />
-                </v-tab-item>
+                <v-tab @click="tabs = 'Deskripsi'">Description</v-tab>
+                <v-tab @click="tabs = 'Syarat'">Term And Conditions</v-tab>
               </v-tabs>
+              <div class="mt-5">
+                <tip-tap
+                  v-if="tabs == 'Deskripsi'"
+                  :getData="form.DESKRIPSI"
+                  @getContent="getDataDeskripsi"
+                />
+                <tip-tap
+                  v-if="tabs == 'Syarat'"
+                  :getData="form.SYARAT"
+                  @getContent="getDataSyarat"
+                />
+              </div>
             </v-col>
           </v-row>
         </div>
         <div class="w-1/2 flex flex-col py-20 px-5 overflow-hidden">
           <v-row class="mt-15" dense>
             <v-col>
-              <div class="flex justify-center bg-white rounded-lg">
+              <div
+                class="flex justify-center bg-white rounded-lg border border-indigo"
+              >
                 <div class="rounded-lg bg-background w-full m-auto bg-white">
                   <div class="m-4">
                     <div class="flex flex-col w-full">
@@ -533,7 +618,8 @@
 
                               <v-btn
                                 v-if="
-                                  !dialogcropimage && form.GAMBAR_EVENT != null
+                                  !dialogcropimage &&
+                                  checkdefaultpicture != null
                                 "
                                 color="cherryv"
                                 class="whitev--text ml-3 mt-3"
@@ -627,7 +713,12 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-col><ticket></ticket> </v-col>
+            <v-col
+              ><ticket
+                :id_event="$route.params.id"
+                :dataTicket="data.tiket"
+              ></ticket
+            ></v-col>
           </v-row>
         </div>
       </v-form>
@@ -650,10 +741,13 @@ export default {
       markers: [],
       map: null,
       places: [],
+      time: null,
       dialogcropimage: false,
       batastransaksi: false,
       currentPlace: null,
       judul: null,
+      waktumulai: false,
+      waktuselesai: false,
       address: false,
       datetglmulaipublish: false,
       datetglselesaipublish: false,
@@ -716,6 +810,11 @@ export default {
           value: "Offline",
         },
       ],
+      dropdownmenu: [
+        { title: "Dashboard", to: "/dashboard" },
+        { title: "Profile", to: "/profile" },
+        { title: "Logout", to: "" },
+      ],
       rules: [(v) => !!v || "This field is required"],
       daterules: [
         (v) => !!v || "This field is required",
@@ -735,6 +834,15 @@ export default {
           this.$moment(v).isAfter(this.form.TGL_ACARA_MULAI) ||
           "End date event need after start date event",
       ],
+      timerulesacaraselesai: [
+        (v) => !!v || "This field is required",
+        (v) =>
+          (!!v &&
+            this.$moment("0001-01-01T" + this.form.WAKTU_SELESAI).isAfter(
+              "0001-01-01T" + this.form.WAKTU_MULAI
+            )) ||
+          "End date event need after start date event",
+      ],
       snackbar: false,
       color: null,
       search: null,
@@ -742,17 +850,19 @@ export default {
       dilaog: false,
       dialoghapus: false,
       gambar: null,
+      tabs: "Deskripsi",
       cropimage: null,
       imagecrop: null,
       data: [],
       kota: [],
       jenisacara: [],
       genre: [],
-      news: new FormData(),
+      event: new FormData(),
       dialogform: false,
       dialoggambar: false,
       id_data: null,
       tempbatastiket: null,
+      checkdefaultpicture: null,
       form: {
         NAMA_EVENT: null,
         TGL_MULAI: null,
@@ -794,13 +904,14 @@ export default {
       var files = e.dataTransfer.files;
       this.form.GAMBAR_EVENT = files[0];
       this.uploadimage = URL.createObjectURL(files[0]);
+      this.checkdefaultpicture = "sudahganti";
       this.imagecrop = URL.createObjectURL(files[0]);
       this.cropimage = null;
     },
     onFileChanged(e) {
       this.uploadimage = URL.createObjectURL(e.target.files[0]);
       this.cropimage = null;
-
+      this.checkdefaultpicture = "sudahganti";
       this.form.GAMBAR_EVENT = e.target.files[0];
     },
     crop() {
@@ -816,19 +927,17 @@ export default {
     cropimagedialog() {
       this.dialogcropimage = true;
     },
-    getDataDeskripsi({ content }) {
-      this.form.DESKRIPSI = content;
-    },
-    getDataSyarat({ content }) {
-      this.form.SYARAT = content;
-    },
+
     setPlace(place) {
       this.currentPlace = place;
     },
     addMarker() {
       if (this.currentPlace) {
         this.form.ADDRESS = this.currentPlace.formatted_address;
-        if (this.form.MODE_EVENT == "Offline") {
+        if (
+          this.form.MODE_EVENT == "Offline" ||
+          this.form.MODE_EVENT == "Hybrid"
+        ) {
           this.form.NAMA_LOKASI = this.currentPlace.name;
           this.form.LAT = this.currentPlace.geometry.location.lat();
           this.form.LNG = this.currentPlace.geometry.location.lng();
@@ -863,17 +972,53 @@ export default {
       this.snackbar = true;
       this.error_message = "Log Out Sucsses";
     },
-    createEvent() {
+    saveEvent() {
       if (this.$refs.form.validate()) {
         var url = this.$api + "/event/" + this.$route.params.id;
-        this.news.append("judul", this.form.JUDUL),
-          this.news.append("gambar_event", this.form.GAMBAR_EVENT),
-          this.news.append("tgl_mulai", this.datenews[0]),
-          this.news.append("tgl_selesai", this.datenews[1]),
-          this.news.append("deskripsi", this.form.DESKRIPSI),
-          this.news.append("id_admin", localStorage.getItem("idadmin")),
+        this.event.append("nama_event", this.form.NAMA_EVENT),
+          this.event.append("gambar_event", this.form.GAMBAR_EVENT),
+          this.event.append("tgl_mulai", this.form.TGL_MULAI),
+          this.event.append("tgl_selesai", this.form.TGL_SELESAI),
+          this.event.append("tgl_acara_mulai", this.form.TGL_ACARA_MULAI),
+          this.event.append(
+            "tgl_acara_selesai",
+            this.form.TGL_ACARA_SELESAI == null
+              ? "kosong"
+              : this.form.TGL_ACARA_SELESAI
+          ),
+          this.event.append("waktu_selesai", this.form.WAKTU_SELESAI),
+          this.event.append("waktu_mulai", this.form.WAKTU_MULAI),
+          this.event.append("visible_event", this.form.VISIBLE_EVENT),
+          this.event.append("mode_event", this.form.MODE_EVENT),
+          this.event.append(
+            "batas_transaksi",
+            this.form.BATAS_TRANSAKSI == true ? 1 : 0
+          ),
+          this.event.append("address", this.form.ADDRESS),
+          this.event.append("batas_tiket", this.form.BATAS_TIKET),
+          this.event.append("nama_lokasi", this.form.NAMA_LOKASI),
+          this.event.append(
+            "deskripsi",
+            this.form.DESKRIPSI == null ? "kosong" : this.form.DESKRIPSI
+          ),
+          this.event.append(
+            "syarat",
+            this.form.SYARAT == null ? "kosong" : this.form.SYARAT
+          ),
+          this.event.append("lat", this.form.LAT),
+          this.event.append("url", this.form.URL),
+          this.event.append("lng", this.form.LNG),
+          this.event.append("id_jenis_acara", this.form.ID_JENIS_ACARA),
+          this.event.append("id_kota", this.form.ID_KOTA),
+          this.event.append("id_genre", this.form.ID_GENRE),
+          this.event.append("with_evaluasi", this.evaluasi == true ? 1 : 0),
+          this.event.append("qna", this.qna == true ? 1 : 0),
+          this.event.append(
+            "with_sertifikat",
+            this.certificate == true ? 1 : 0
+          ),
           this.$http
-            .post(url, this.news, {
+            .post(url, this.event, {
               headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
               },
@@ -888,113 +1033,13 @@ export default {
             })
             .catch((error) => {
               this.error_message = error.response.data.message;
-              if (error.response.data.message.nama_kota != null) {
-                this.error_message = "The news name already taken";
-              }
-              if (error.response.data.message.gambar_kota != null) {
+              if (error.response.data.message.gambar_event != null) {
                 this.error_message = "Image must be field";
               }
               this.color = "dangerv";
               this.snackbar = true;
             });
       }
-    },
-    tutup() {
-      this.dialogform = false;
-      this.form = [];
-      this.show1 = false;
-      this.change = false;
-      this.show2 = false;
-      this.datenews = [];
-      this.momentdate = [];
-      this.$refs.form.reset();
-      this.uploadimage = null;
-    },
-    showdialogh(id) {
-      this.dialoghapus = true;
-      this.judul = "Delete News";
-      this.id_data = id;
-    },
-    showdialogt() {
-      this.dialogform = true;
-      this.judul = "Add News";
-      this.cekaction = "tambah";
-    },
-    showdialoge(item) {
-      this.dialogform = true;
-      this.judul = "Edit News";
-      this.cekaction = "edit";
-      this.id_data = item.ID_BERITA;
-      var url = this.$api + "/berita/" + this.id_data;
-      this.$http
-        .get(url, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          this.datenews[0] = response.data.data.TGL_MULAI;
-          this.datenews[1] = response.data.data.TGL_SELESAI;
-          this.form.DESKRIPSI = response.data.data.DESKRIPSI;
-          this.momentdate = [
-            this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY"),
-            this.$moment(this.datenews[1]).format("dddd, MMMM D YYYY"),
-          ];
-          this.form.JUDUL = response.data.data.JUDUL;
-          this.uploadimage =
-            this.$image + "/GambarBerita/" + response.data.data.GAMBAR_EVENT;
-        });
-    },
-    edit() {
-      if (this.$refs.form.validate()) {
-        var url = this.$api + "/berita/" + this.id_data;
-        this.news.append("judul", this.form.JUDUL),
-          this.news.append("gambar_berita", this.form.GAMBAR_EVENT),
-          this.news.append("tgl_mulai", this.datenews[0]),
-          this.news.append("tgl_selesai", this.datenews[1]),
-          this.news.append("deskripsi", this.form.DESKRIPSI),
-          this.news.append("id_admin", localStorage.getItem("idadmin")),
-          this.$http
-            .post(url, this.news, {
-              headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
-              },
-            })
-            .then((response) => {
-              this.error_message = response.data.message;
-              this.color = "green";
-              this.snackbar = true;
-              this.tutup();
-              this.readData();
-            })
-            .catch((error) => {
-              this.error_message = error.response.data.message;
-              this.color = "red";
-              this.snackbar = true;
-            });
-      }
-    },
-    hapus() {
-      var url = this.$api + "/berita/" + this.id_data;
-      this.$http
-        .delete(url, {
-          headers: {
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-        })
-        .then((response) => {
-          this.error_message = response.data.message;
-          this.color = "success";
-          this.snackbar = true;
-          this.dialoghapus = false;
-          this.readData();
-        })
-        .catch((error) => {
-          this.error_message = error.response.data.message;
-          this.color = "dangerv";
-          this.dialoghapus = false;
-          this.snackbar = true;
-        });
     },
     readData() {
       var url = this.$api + "/event/" + this.$route.params.id;
@@ -1012,7 +1057,14 @@ export default {
           this.evaluasi = response.data.data.EVALUASI;
           this.form = response.data.data;
           this.tempbatastiket = response.data.data.BATAS_TIKET;
-          this.certificate = response.data.data.CERTIFICATE;
+          this.certificate = response.data.data.SERTIFIKAT;
+          const marker = {
+            lat: response.data.data.LAT,
+            lng: response.data.data.LNG,
+          };
+          this.markers.push({ position: marker });
+          this.places.push(this.currentPlace);
+          this.center = marker;
           if (response.data.data.GAMBAR_EVENT != null)
             this.uploadimage =
               this.$image + "/GambarEvent/" + response.data.data.GAMBAR_EVENT;
@@ -1055,13 +1107,20 @@ export default {
       if (value == null) return "";
       else return this.$moment(value, "YYYY/MM/DD").format("dddd, MMMM D YYYY");
     },
-    getDataChild({ content }) {
+    formatWaktu(value) {
+      return this.$moment(value, "HH:mm:ss").format("HH:mm");
+    },
+    getDataDeskripsi({ content }) {
       this.form.DESKRIPSI = content;
     },
+    getDataSyarat({ content }) {
+      this.form.SYARAT = content;
+    },
   },
+
   mounted() {
-    this.readData();
     this.geolocate();
+    this.readData();
   },
   computed: {
     dateRangeText() {
@@ -1074,6 +1133,9 @@ export default {
 </script>
 
 <style>
+html {
+  overflow-y: scroll;
+}
 .v-dialog {
   scrollbar-width: normal;
   scrollbar-color: #790604;

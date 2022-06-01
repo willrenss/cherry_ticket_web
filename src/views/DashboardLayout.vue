@@ -335,7 +335,7 @@ export default {
       this.event.append("id_eo", localStorage.getItem("ideo")),
         this.event.append("with_evaluasi", this.evaluasi == true ? 1 : 0),
         this.event.append("qna", this.qna == true ? 1 : 0),
-        this.event.append("with_sertifikat", this.qna == true ? 1 : 0),
+        this.event.append("with_sertifikat", this.sertifikat == true ? 1 : 0),
         this.$http
           .post(url, this.event, {
             headers: {
@@ -383,7 +383,7 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style>
 .dashboard {
   scrollbar-width: normal;
   scrollbar-color: #790604;
@@ -414,7 +414,7 @@ export default {
 }
 
 html {
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .v-dialog {
