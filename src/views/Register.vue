@@ -172,8 +172,7 @@ export default {
       ],
       telerules: [
         (v) => !!v || "This Number Phone field is required.",
-        (v) =>
-          !v || /^08[0-9]{9,10}$/.test(v) || "Enter a valid e-mail address",
+        (v) => !v || /^08[0-9]{9,10}$/.test(v) || "Enter a valid number phone",
       ],
     };
   },

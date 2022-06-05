@@ -1,7 +1,7 @@
 <!-- @format -->
 <template>
-  <v-main class="bg-background">
-    <div class="p-5">
+  <v-main class="bg-background w-full h-full">
+    <div class="h-full w-full">
       <v-tabs
         background-color="backgroundv"
         color="cherryv"
@@ -9,14 +9,17 @@
         :grow="true"
       >
         <v-tab>Form Register</v-tab>
-        <v-tab v-if="data.EVALUASI == 1">Form Evaluasi</v-tab>
-        <v-tab-item class="p-5 bg-background"
+        <v-tab :disabled="data.EVALUASI == 1 ? false : true"
+          >Form Evaluasi</v-tab
+        >
+        <v-tab-item class="bg-background h-full w-full"
           ><pendaftaran></pendaftaran
         ></v-tab-item>
 
         <v-tab-item
           v-if="data.EVALUASI == 1"
-          class="p-5 bg-background"
+          class="bg-background h-full w-full"
+          ><evaluasi></evaluasi
         ></v-tab-item>
       </v-tabs>
     </div>
@@ -24,9 +27,11 @@
 </template>
 <script>
 import Pendaftaran from "./event-child/FormPendaftaran.vue";
+import Evaluasi from "./event-child/FormEvaluasi.vue";
 export default {
   components: {
     Pendaftaran,
+    Evaluasi,
   },
   name: "Dashboard",
   data() {

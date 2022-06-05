@@ -249,9 +249,12 @@ export default {
     deleteQuestion(index) {
       this.datapertanyaan.splice(index, 1);
     },
+    updateOption(index, i, newData) {
+      this.datapertanyaan[index].OPTIONS[i].OPTION = newData;
+    },
     updateForm() {
       if (this.$refs.form.validate()) {
-        var url = this.$api + "/fpendaftaran/" + this.data.ID_FORM_PENDAFTARAN;
+        var url = this.$api + "/fevaluasi/" + this.data.ID_FORM_EVALUASI;
         let newData = {
           data_pertanyaan: this.datapertanyaan,
         };
@@ -301,11 +304,8 @@ export default {
     updatePertanyaan(i, newData) {
       this.datapertanyaan[i].PERTANYAAN = newData;
     },
-    updateOption(index, i, newData) {
-      this.datapertanyaan[index].OPTIONS[i].OPTION = newData;
-    },
     readData() {
-      var url = this.$api + "/fpendaftaran/" + localStorage.getItem("idevent");
+      var url = this.$api + "/fevaluasi/" + localStorage.getItem("idevent");
       this.$http
         .get(url, {
           headers: {

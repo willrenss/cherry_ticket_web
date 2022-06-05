@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-  <v-app class="dashboard">
+  <v-app class="dashboard" style="background-color: #f2f5f7">
     <div style="background-color: #f2f5f7">
       <v-navigation-drawer
         color="cherryv"
@@ -173,6 +173,7 @@
                 link
                 v-for="(item, index) in dropdownmenu"
                 :key="index"
+                :to="item.to"
               >
                 <v-list-item-title v-if="item.title != 'Logout'">{{
                   item.title
@@ -369,11 +370,13 @@ export default {
   },
   mounted() {
     this.role = localStorage.getItem("role");
+
     if (localStorage.getItem("role") == "Admin") {
       this.items = [
         { title: "Admin", to: "/admin", icon: "mdi-account-tie" },
         { title: "Event", to: "/event", icon: "mdi-calendar-multiple" },
       ];
+      this.dropdownmenu = [{ title: "Logout", to: "" }];
     } else {
       this.items = [
         { title: "Home", to: "/dashboard", icon: "mdi-home" },

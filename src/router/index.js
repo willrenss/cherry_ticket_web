@@ -158,6 +158,16 @@ const router = new VueRouter({
             else next("/login");
           },
         },
+        {
+          path: "/profile",
+          name: "Proflie Event Organizer",
+          meta: { title: "Profile Event Organizer" },
+          component: importComponent("eo/Profile"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
       ],
     },
     {

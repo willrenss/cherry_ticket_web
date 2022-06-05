@@ -130,7 +130,7 @@ export default {
               this.color = "success";
               this.snackbar = true;
               this.load = false;
-              localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
+              localStorage.setItem("id", response.data.user.ID_USER); //menyimpan id user yang sedang login
               localStorage.setItem("token", response.data.token);
               localStorage.setItem("role", response.data.user.role);
               setTimeout(() => this.$router.push("/dashboard"), 500);
@@ -140,7 +140,7 @@ export default {
               this.color = "success";
               this.snackbar = true;
               this.load = false;
-              localStorage.setItem("id", response.data.user.id); //menyimpan id user yang sedang login
+              localStorage.setItem("id", response.data.user.ID_USER); //menyimpan id user yang sedang login
               localStorage.setItem("token", response.data.token);
               localStorage.setItem("role", response.data.user.role);
               setTimeout(() => this.$router.push("/dashboard"), 500);

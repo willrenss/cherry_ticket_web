@@ -19,7 +19,7 @@
         background-color="backgroundv"
         color="cherryv"
         class="mt-3"
-        grow="true"
+        :grow="true"
       >
         <v-tab>Event Draft</v-tab>
         <v-tab>Event Active</v-tab>
