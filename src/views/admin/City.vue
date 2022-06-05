@@ -112,12 +112,7 @@
           >Picture City</v-toolbar
         >
         <v-card-text>
-          <v-img
-            :aspect-ratio="1 / 1"
-            :src="image"
-            class="mx-auto mt-10"
-            max-width="400px"
-          ></v-img>
+          <v-img :src="image" class="mx-auto mt-10" max-width="400px"></v-img>
         </v-card-text>
         <v-card-actions class="justify-end">
           <v-btn

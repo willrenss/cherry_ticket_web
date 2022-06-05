@@ -115,7 +115,7 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="dialoggambar" persistent max-width="600px">
-      <v-card>
+      <v-card color="backgroundv">
         <v-toolbar color="indigov text-lg font-bold" dark
           >Picture Category Event</v-toolbar
         >

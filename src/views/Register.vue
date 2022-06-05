@@ -54,6 +54,7 @@
                   color="indigov"
                 />
                 <v-text-field
+                  class="inputnumber"
                   outlined
                   dense
                   v-model="phone"
@@ -61,7 +62,7 @@
                   label="Number Phone"
                   :rules="telerules"
                   placeholder="Number Phone"
-                  type="text"
+                  type="number"
                   color="indigov"
                 />
                 <div class="flex flex-row">
@@ -220,7 +221,13 @@ export default {
 }
 </style>
 
-<style scoped>
+<style>
+.inputnumber input::-webkit-outer-spin-button,
+.inputnumber input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
+}
 .v-application a {
   color: #790604;
 }

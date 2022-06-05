@@ -325,8 +325,9 @@
                 medium
                 color="cherryv"
                 @click="showdialogreject(data.ID_EVENT)"
-                >Rejected</v-btn
               >
+                {{ EVENT_TAB == "Publish" ? "Rejected" : "Take Down" }}
+              </v-btn>
 
               <v-btn
                 class="whitev--text mr-3"
@@ -341,7 +342,10 @@
         </div>
       </div>
     </div>
-    <div class="w-full flex px-10 pb-5" v-if="data.EVENT_TAB == 'Active'">
+    <div
+      class="w-full flex px-10 pb-5"
+      v-if="data.EVENT_TAB == 'Active' && role == 'EO'"
+    >
       <div
         class="grid grid-cols-6 grid-rows-1 gap-16 place-content-center m-auto"
       >

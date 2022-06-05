@@ -19,6 +19,23 @@
         >
       </v-card-title>
       <v-data-table :headers="headers" :items="data" :search="search">
+        <template v-slot:[`item.GAMBAR`]="{ item }">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                icon
+                small
+                class="mr-2"
+                v-bind="attrs"
+                v-on="on"
+                @click="showgambar(item.GAMBAR_GENRE)"
+              >
+                <v-icon color="deep-orange darken-4">mdi-image-area</v-icon>
+              </v-btn>
+            </template>
+            <span>Show Picture</span>
+          </v-tooltip></template
+        >
         <template v-slot:[`item.actions`]="{ item }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
@@ -90,7 +107,7 @@
       </v-card>
     </v-dialog>
     <v-dialog v-model="dialoggambar" persistent max-width="600px">
-      <v-card>
+      <v-card color="backgroundv">
         <v-toolbar color="indigov text-lg font-bold" dark
           >Picture Genre</v-toolbar
         >
@@ -131,6 +148,101 @@
                   required
                 ></v-text-field>
               </v-col>
+            </v-row>
+            <v-row class="mt-10">
+              <div class="flex justify-center">
+                <div class="rounded-lg bg-background lg:w-1/2">
+                  <div class="m-4">
+                    <div class="flex flex-col w-full">
+                      <label
+                        class="m-auto inline-block text-lg font-bold text-cherry"
+                        >Upload Image</label
+                      >
+                      <label
+                        class="m-auto inline-block mb-2 text-sm font-semibold text-indigo"
+                        >.png .jpg</label
+                      >
+                    </div>
+
+                    <div class="flex items-center justify-center w-full">
+                      <label
+                        v-if="uploadimage == null"
+                        class="flex flex-col w-full h-32 border-4 border-dashed border-indigo hover:border-cherry"
+                        @dragover.prevent
+                        @drop="onDrop"
+                      >
+                        <div
+                          class="flex flex-col items-center justify-center opacitiy-100 pt-7"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="w-12 h-12 text-indigo hover:text-cherry"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                          <p
+                            class="pt-1 text-sm tracking-wider text-indigo group-hover:text-cherry"
+                          >
+                            <span class="text-cherry font-semibold">
+                              Select
+                            </span>
+                            or
+                            <span class="text-cherry font-semibold">
+                              Drag
+                            </span>
+                            and
+                            <span class="text-cherry font-semibold"> Drop </span
+                            >a photo here
+                          </p>
+                        </div>
+                        <input
+                          v-if="uploadimage == null"
+                          type="file"
+                          ref="uploader"
+                          accept="image"
+                          @change="onFileChanged"
+                          class="opacity-0"
+                        />
+                      </label>
+                      <div
+                        @dragover.prevent
+                        @drop="onDrop"
+                        data-aos="zoom-in"
+                        v-if="uploadimage != null"
+                        class="h-full"
+                      >
+                        <div class="flex flex-col mt-3">
+                          <img :src="uploadimage" alt="Upload" />
+                          <div class="w-fit flex">
+                            <v-btn
+                              color="indigov"
+                              class="whitev--text mt-3 m-auto"
+                              rounded
+                              depressed
+                              @click="onButtonClick()"
+                            >
+                              Change Picture
+                            </v-btn>
+                            <input
+                              ref="uploader"
+                              class="d-none"
+                              type="file"
+                              accept="image"
+                              @change="onFileChanged"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </v-row>
           </v-form>
         </v-card-text>
@@ -196,21 +308,38 @@ export default {
       id_data: null,
       form: {
         NAMA_GENRE: null,
+        GAMBAR_GENRE: null,
       },
       headers: [
         {
           text: "Genre Name",
           value: "NAMA_GENRE",
         },
+        { text: "Picture", value: "GAMBAR" },
         { text: "Actions", value: "actions" },
       ],
     };
   },
   methods: {
+    onButtonClick() {
+      this.$refs.uploader.click();
+    },
+    onDrop: function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var files = e.dataTransfer.files;
+      this.form.GAMBAR_GENRE = files[0];
+      this.uploadimage = URL.createObjectURL(files[0]);
+    },
+    onFileChanged(e) {
+      this.form.GAMBAR_GENRE = e.target.files[0];
+      this.uploadimage = URL.createObjectURL(e.target.files[0]);
+    },
     tambah() {
       if (this.$refs.form.validate()) {
         var url = this.$api + "/genre";
         this.genre.append("nama_genre", this.form.NAMA_GENRE),
+          this.genre.append("gambar", this.form.GAMBAR_GENRE),
           this.$http
             .post(url, this.genre, {
               headers: {
@@ -234,6 +363,10 @@ export default {
               this.snackbar = true;
             });
       }
+    },
+    showgambar(item) {
+      this.dialoggambar = true;
+      this.image = this.$image + "/GambarGenre/" + item;
     },
     tutup() {
       this.dialogform = false;
@@ -268,7 +401,9 @@ export default {
           },
         })
         .then((response) => {
-          this.form = response.data.data;
+          this.form.NAMA_GENRE = response.data.data.NAMA_GENRE;
+          this.uploadimage =
+            this.$image + "/GambarGenre/" + response.data.data.GAMBAR_GENRE;
         });
     },
     edit() {
