@@ -409,30 +409,29 @@ export default {
     edit() {
       if (this.$refs.form.validate()) {
         var url = this.$api + "/genre/" + this.id_data;
-        let newData = {
-          nama_genre: this.form.NAMA_GENRE,
-        };
-        this.$http
-          .put(url, newData, {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-          })
-          .then((response) => {
-            this.error_message = response.data.message;
-            this.color = "success";
-            this.snackbar = true;
-            this.tutup();
-            this.readData();
-          })
-          .catch((error) => {
-            this.error_message = error.response.data.message;
-            if (error.response.data.message.nama_genre != null) {
-              this.error_message = "The genre name already taken";
-            }
-            this.color = "dangerv";
-            this.snackbar = true;
-          });
+        this.genre.append("nama_genre", this.form.NAMA_GENRE),
+          this.genre.append("gambar", this.form.GAMBAR_GENRE),
+          this.$http
+            .post(url, this.genre, {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+              },
+            })
+            .then((response) => {
+              this.error_message = response.data.message;
+              this.color = "success";
+              this.snackbar = true;
+              this.tutup();
+              this.readData();
+            })
+            .catch((error) => {
+              this.error_message = error.response.data.message;
+              if (error.response.data.message.nama_genre != null) {
+                this.error_message = "The genre name already taken";
+              }
+              this.color = "dangerv";
+              this.snackbar = true;
+            });
       }
     },
     hapus() {
