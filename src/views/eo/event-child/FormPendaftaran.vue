@@ -2,7 +2,7 @@
 <template>
   <div class="w-full h-full">
     <div class="w-full h-full flex flex-col mb-20">
-      <v-form ref="form">
+      <v-form data-aos="zoom-in" ref="form">
         <v-container
           v-for="(value, index) in List"
           :key="index"
@@ -134,6 +134,10 @@
             </v-card-actions>
           </v-card>
         </v-container>
+        <v-container
+          v-if="datapertanyaan.length < 3"
+          class="w-full px-5 h-screen"
+        ></v-container>
       </v-form>
     </div>
     <div class="fixed bottom-0 bg-indigo w-full p-3 mt-10">
@@ -278,6 +282,10 @@ export default {
       this.datapertanyaan.push({
         PERTANYAAN: "",
         TYPE: "Text",
+        NOMOR:
+          this.datapertanyaan.length == 0
+            ? 1
+            : this.datapertanyaan[this.datapertanyaan.length - 1].NOMOR + 1,
         OPTIONS: [
           {
             OPTION: null,
@@ -325,6 +333,7 @@ export default {
               {
                 PERTANYAAN: null,
                 TYPE: "Text",
+                NOMOR: 1,
                 OPTIONS: [
                   {
                     OPTION: null,
