@@ -7,10 +7,10 @@
             Host The Best <span class="text-indigo">Event</span> Here.
           </h1>
           <p class="text-cherry text-sm mt-10">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-            nobis consequuntur provident assumenda vero, velit quia nihil iusto,
-            quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-            distinctio delectus?
+            Cherry Ticket is a platform for all your events. From registration
+            to event day, and everything in between. We are building a powerful
+            and versatile platform, ranging from professional events, meetings
+            and live streams.
           </p>
           <div class="mt-10">
             <button type="button" class="login font-sans font-semibold">

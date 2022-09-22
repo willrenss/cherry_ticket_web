@@ -721,13 +721,23 @@ export default {
           this.event = this.data.ID_EVENT;
           this.token = this.data.TOKEN;
         });
+      this.readData();
+      this.readDataEvent();
     },
     readDataEvent() {
-      this.income = 200000;
-      this.tiket = 100;
-      this.tiketjumlah = 200;
-      this.transaksi = 100;
-      this.participant = 800;
+      var url = this.$api + "/profilevent/" + localStorage.getItem("idevent");
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.transaksi = response.data.data.total_transaksi;
+          this.tiket = response.data.data.tiket_tersisa;
+          this.income = response.data.data.total_income;
+          this.participant = response.data.data.total_visitor;
+        });
     },
     readData() {
       var url = this.$api + "/event/" + localStorage.getItem("idevent");
@@ -741,6 +751,7 @@ export default {
           this.data = response.data.data;
           this.tabs = this.data.EVENT_TAB;
           this.event = this.data.ID_EVENT;
+          this.tiketjumlah = response.data.data.TOTAL_TIKET_BEREDAR;
           this.token = this.data.TOKEN;
         });
     },

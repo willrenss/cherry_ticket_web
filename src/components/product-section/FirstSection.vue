@@ -16,10 +16,9 @@
               Buy <span class="text-indigo">Ticket</span> Here.
             </h1>
             <p class="text-cherry font-semibold text-sm mt-9 w-10/12 pr-20">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-              nobis consequuntur provident assumenda vero, velit quia nihil
-              iusto, quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-              distinctio delectus?
+              Discover your favorite music concerts, sport competitions, online
+              conferences, and more in Cherry Ticket. No worries, you can buy
+              tickets with a hassle-free process. Download now!
             </p>
           </div>
           <div data-aos="fade-left" class="flex flex-row p-1">

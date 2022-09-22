@@ -19,6 +19,7 @@
     "tiptap-vuetify": "^2.24.0",
     "vue": "^2.6.11",
     "vue-advanced-cropper": "^1.10.1",
+    "vue-google-charts": "^1.1.0",
     "vue-html2pdf": "^1.8.0",
     "vue-moment": "^4.1.0",
     "vue-router": "^3.5.1",

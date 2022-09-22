@@ -73,7 +73,7 @@
               <p
                 class="text-gray text-2xl px-3 absolute inset-x-0 bottom-0 h-5"
               >
-                Event
+                Times
               </p>
             </div>
           </div>
@@ -98,7 +98,7 @@
               <p
                 class="text-gray text-2xl px-3 absolute inset-x-0 bottom-0 h-5"
               >
-                Event
+                Ticket
               </p>
             </div>
           </div>
@@ -119,15 +119,9 @@
           </div>
           <div class="flex flex-row w-full px-4 py-5 items-end">
             <p class="text-indigo my-auto text-5xl">
-              {{ formatPrice(income) }}
+              Rp. {{ formatPrice(income) }}
             </p>
-            <div class="relative h-full">
-              <p
-                class="text-gray text-2xl px-3 absolute inset-x-0 bottom-0 h-5"
-              >
-                Event
-              </p>
-            </div>
+            <div class="relative h-full"></div>
           </div>
         </div>
 
@@ -137,7 +131,7 @@
               <v-icon color="indigov" class="text-lg text-inidgov"
                 >mdi-calendar-multiple</v-icon
               >
-              <p class="my-auto px-3">Total Visitors</p>
+              <p class="my-auto px-3">Total Participant</p>
             </div>
           </div>
           <div class="divide-y-2 divide-indigo mt-1 px-2">
@@ -150,7 +144,7 @@
               <p
                 class="text-gray text-2xl px-3 absolute inset-x-0 bottom-0 h-5"
               >
-                Event
+                People
               </p>
             </div>
           </div>
@@ -174,12 +168,21 @@ export default {
   },
   methods: {
     readData() {
-      this.aktif = 10;
-      this.draft = 10;
-      this.transaksi = 124;
-      this.tiket = 200;
-      this.income = 2000000;
-      this.visitors = 800;
+      var url = this.$api + "/dashboard/" + localStorage.getItem("ideo");
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.aktif = response.data.data.event_active;
+          this.draft = response.data.data.event_draft;
+          this.transaksi = response.data.data.total_transaksi;
+          this.tiket = response.data.data.tiket_terjual;
+          this.income = response.data.data.total_income;
+          this.visitors = response.data.data.total_visitor;
+        });
     },
     formatPrice(value) {
       return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");

@@ -12,7 +12,6 @@
           hide-details
         >
         </v-text-field>
-
         <v-spacer></v-spacer>
         <v-btn color="indigov" class="whitev--text" @click="showdialogt()"
           ><v-icon left>mdi-plus</v-icon>Add Admin</v-btn

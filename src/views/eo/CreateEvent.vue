@@ -593,7 +593,7 @@
                             alt="Upload"
                             class="m-auto image"
                           />
-                          <div class="w-full flex">
+                          <div class="w-1/2 flex">
                             <cropper
                               v-if="dialogcropimage"
                               ref="cropper"

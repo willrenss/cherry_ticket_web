@@ -48,25 +48,25 @@ export default {
           title: "Event Organizer",
           value: 0,
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis consequuntur provident assumenda vero.",
+            "We are trusted by event organizers to host their events.",
         },
         {
           title: "Event",
           value: 0,
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis consequuntur provident assumenda vero.",
+            "Since we started in 2022, we have empowered more than 1200 events.",
         },
         {
           title: "Customer",
           value: 0,
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis consequuntur provident assumenda vero.",
+            "More than 800 people have relied on Cherry Ticket as their go-to ticket store.",
         },
         {
           title: "City",
           value: 0,
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis consequuntur provident assumenda vero.",
+            "We have hosted first-rate events in well-known venues around the world.",
         },
       ],
       isShowed: false,

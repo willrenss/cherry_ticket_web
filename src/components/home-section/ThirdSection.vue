@@ -8,8 +8,9 @@
         Why Host Your <span class="text-indigo">Event</span> Here!
       </h1>
       <p class="text-cherry mb-5 font-semibold">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis
-        consequuntur provident assumenda vero.
+        We have everything you need to create an unforgettable event. Cherry
+        Ticket allows you to deliver events with more convenience, more choice
+        and more customization.
       </p>
       <div class="container-offer">
         <div
@@ -39,17 +40,17 @@ export default {
         {
           title: "Simpel",
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis consequuntur provident assumenda vero.",
+            "Presents beautifully designed user interface and experience. You can easily use the available menus to create unique online experiences for your audience.",
         },
         {
           title: "Faster",
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis consequuntur provident assumenda vero.",
+            "Our dashboard provides robust tools for you to control your events easily and swiftly.",
         },
         {
           title: "Every Where",
           description:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo nobis consequuntur provident assumenda vero.",
+            "Virtually manage and publicize your events anywhere without the need to print physical invitation cards. Just kick back and relax.",
         },
       ],
     };

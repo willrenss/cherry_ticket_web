@@ -2,7 +2,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
 
 <template>
   <div class="background h-screen">
-    <div class="mx-auto mt-10">
+    <div class="m-auto mt-10">
       <h1
         data-aos="fade-down"
         class="text-cherry text-center text-7xl font-sans font-bold"
@@ -11,7 +11,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
       </h1>
       <div
         data-aos="zoom-in"
-        class="grid grid-cols-3 grid-rows-2 gap-10 place-content-center mt-10"
+        class="grid grid-cols-3 grid-rows-2 gap-x-64 gap-y-44 place-content-center mt-20"
       >
         <div>
           <img
@@ -22,10 +22,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <p class="text-center text-cherry text-lg mt-5 font-bold">Scan QR</p>
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-              nobis consequuntur provident assumenda vero, velit quia nihil
-              iusto, quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-              distinctio delectus?
+              Check-in and check-out with ease using our built-in QR scanner.
             </p>
           </div>
         </div>
@@ -38,10 +35,8 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <p class="text-center text-cherry text-lg mt-5 font-bold">QnA</p>
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-              nobis consequuntur provident assumenda vero, velit quia nihil
-              iusto, quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-              distinctio delectus?
+              Submit your questions and it will directly go into the organizer’s
+              inbox. No questions will get lost.
             </p>
           </div>
         </div>
@@ -57,10 +52,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           </p>
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-              nobis consequuntur provident assumenda vero, velit quia nihil
-              iusto, quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-              distinctio delectus?
+              Save your attendance certificate anytime at your convenience.
             </p>
           </div>
         </div>
@@ -74,10 +66,8 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <p class="text-center text-cherry text-lg mt-5 font-bold">Go To</p>
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-              nobis consequuntur provident assumenda vero, velit quia nihil
-              iusto, quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-              distinctio delectus?
+              No more going astray. Our app will provides the fastest route from
+              your location to the venue.
             </p>
           </div>
         </div>
@@ -91,10 +81,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <p class="text-center text-cherry text-lg mt-5 font-bold">Ticket</p>
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-              nobis consequuntur provident assumenda vero, velit quia nihil
-              iusto, quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-              distinctio delectus?
+              Safely and easily choose, pay, and get your desired tickets.
             </p>
           </div>
         </div>
@@ -110,10 +97,8 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           </p>
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic illo
-              nobis consequuntur provident assumenda vero, velit quia nihil
-              iusto, quasi nam beatae deserunt id pariatur suscipit ipsum culpa
-              distinctio delectus?
+              Give a big impact on the event held by submitting your valuable
+              opinions.
             </p>
           </div>
         </div>
