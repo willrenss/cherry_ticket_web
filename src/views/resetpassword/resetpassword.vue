@@ -1,8 +1,8 @@
 <template>
-  <v-app style="background: #f2f5f7">
+  <div style="background: #f2f5f7">
     <navigation-menu :route="this.$route.name" />
     <div
-      class="bg-background bg-no-repeat flex h-full bg-right-bottom py-10"
+      class="bg-background bg-no-repeat flex h-screen bg-right-bottom py-10"
       style="
         background-image: url('https://cherryticket.com/background-product.png');
       "
@@ -81,7 +81,7 @@
       :snackbar="snackbar"
       :text="error_message"
     />
-  </v-app>
+  </div>
 </template>
 
 <script>

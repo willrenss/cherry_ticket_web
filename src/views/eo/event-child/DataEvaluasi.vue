@@ -13,6 +13,12 @@
         >
         </v-text-field>
         <v-spacer></v-spacer>
+        <v-btn
+          color="indigov"
+          class="whitev--text"
+          @click="exportdataevaluasi()"
+          ><v-icon left>mdi-note</v-icon>Export data evaluation</v-btn
+        >
       </v-card-title>
       <v-data-table :headers="headers" :items="data" :search="search">
         <template v-slot:[`item.actions`]="{ item }">
@@ -274,6 +280,29 @@ export default {
     };
   },
   methods: {
+    exportdataevaluasi() {
+      var url =
+        this.$api + "/laporanevaluasi/" + localStorage.getItem("idevent");
+      this.$http
+        .get(url, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          responseType: "blob",
+        })
+        .then((response) => {
+          var bambang =
+            this.$api + "/laporanevaluasi/" + localStorage.getItem("idevent");
+          window.open(bambang);
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          link.href = url;
+          document.body.appendChild(link);
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+        });
+    },
     showresult(item) {
       this.datashow = item;
       this.dialogshow = true;

@@ -1,7 +1,7 @@
 <!-- @format -->
 
 <template>
-  <v-main class="bg-background">
+  <v-main class="bg-backgroun overflow-hidden">
     <div class="pl-10 pr-5 pt-5" v-if="data.KOMENTAR != null && role == 'EO'">
       <v-alert
         text

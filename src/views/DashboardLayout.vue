@@ -179,6 +179,7 @@
                   item.title
                 }}</v-list-item-title>
                 <v-list-item-title
+                  href="https://ui.cherryticket.com"
                   @click="logout"
                   v-if="item.title == 'Logout'"
                   >{{ item.title }}</v-list-item-title
@@ -239,7 +240,7 @@
       <v-snackbar v-model="snackbar" :color="color" timeout="2000" bottom>
         {{ error_message }}
       </v-snackbar>
-      <div class="h-screen">
+      <div class="h-full overflow-hidden">
         <router-view></router-view>
       </div>
     </div>
@@ -363,7 +364,8 @@ export default {
       localStorage.removeItem("idadmin");
       localStorage.removeItem("email");
       this.color = "success";
-      setTimeout(() => window.location.replace(this.$link + "/login"), 1000);
+      this.$router.push("/login");
+      // setTimeout(() => window.location.replace(this.$link + "/login"), 1000);
       this.snackbar = true;
       this.error_message = "Log Out Sucsses";
     },
@@ -381,12 +383,13 @@ export default {
       this.items = [
         { title: "Home", to: "/dashboard", icon: "mdi-home" },
         { title: "Event", to: "/event", icon: "mdi-calendar-multiple" },
+        { title: "Withdraw", to: "/withdraw", icon: "mdi-wallet" },
       ];
     }
   },
 };
 </script>
-<style>
+<style scoped>
 .dashboard {
   scrollbar-width: normal;
   scrollbar-color: #790604;

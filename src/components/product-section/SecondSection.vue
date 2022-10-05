@@ -11,7 +11,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
       </h1>
       <div
         data-aos="zoom-in"
-        class="grid grid-cols-3 grid-rows-2 gap-x-64 gap-y-44 place-content-center mt-20"
+        class="grid grid-cols-3 grid-rows-2 gap-x-20 gap-y-20 place-content-center mt-16"
       >
         <div>
           <img
@@ -22,7 +22,9 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <p class="text-center text-cherry text-lg mt-5 font-bold">Scan QR</p>
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
-              Check-in and check-out with ease using our built-in QR scanner.
+              Save your attendance certificate anytime at your convenience.
+              After the event ended, the certificate will be available for
+              download.
             </p>
           </div>
         </div>
@@ -36,7 +38,8 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
               Submit your questions and it will directly go into the organizer’s
-              inbox. No questions will get lost.
+              inbox. No questions will get lost. You can easily see the answers
+              too!
             </p>
           </div>
         </div>
@@ -53,6 +56,8 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
               Save your attendance certificate anytime at your convenience.
+              After the event ended, the certificate will be available for
+              download.
             </p>
           </div>
         </div>
@@ -67,7 +72,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
               No more going astray. Our app will provides the fastest route from
-              your location to the venue.
+              your location to the venue. How convenient is that?
             </p>
           </div>
         </div>
@@ -82,6 +87,8 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
               Safely and easily choose, pay, and get your desired tickets.
+              Choose from a wide variety of tickets for events all over the
+              world. Go get ‘em now without worries!
             </p>
           </div>
         </div>
@@ -98,7 +105,8 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
           <div class="flex w-8/12 mx-auto">
             <p class="text-center text-cherry text-sm mt-2 w-full">
               Give a big impact on the event held by submitting your valuable
-              opinions.
+              opinions. They can read your critics and suggestions directly.
+              Don’t worry, it’s anonymous.
             </p>
           </div>
         </div>

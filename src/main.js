@@ -34,7 +34,7 @@ Vue.use(VueGoogleMaps, {
 Vue.config.productionTip = false;
 Vue.prototype.$image = process.env.VUE_APP_LINK_IMAGE;
 Vue.prototype.$api = process.env.VUE_APP_API;
-Vue.prototype.$link = process.env.VUE_APP_LINK_LOCAL;
+Vue.prototype.$link = process.env.VUE_APP_LINK;
 Vue.prototype.$http = axios;
 new Vue({
   created() {

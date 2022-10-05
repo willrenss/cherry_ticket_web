@@ -7,7 +7,7 @@ function importComponent(path) {
 }
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "hash",
   routes: [
     {
       path: "/dashboard",
@@ -163,6 +163,16 @@ const router = new VueRouter({
           name: "Proflie Event Organizer",
           meta: { title: "Profile Event Organizer" },
           component: importComponent("eo/Profile"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
+        {
+          path: "/withdraw",
+          name: "Withdraw",
+          meta: { title: "Withdraw" },
+          component: importComponent("Withdraw"),
           beforeEnter: (to, from, next) => {
             if (localStorage.getItem("id")) next();
             else next("/login");
