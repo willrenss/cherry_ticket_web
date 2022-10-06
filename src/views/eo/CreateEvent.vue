@@ -584,16 +584,16 @@
                         @drop="onDrop"
                         data-aos="zoom-in"
                         v-if="uploadimage != null"
-                        class="h-full"
+                        class="w-full"
                       >
-                        <div class="flex flex-col w-full mt-3">
+                        <div class="flex flex-col w-full mt-3 m-auto">
                           <img
                             v-if="!dialogcropimage"
                             :src="cropimage != null ? cropimage : uploadimage"
                             alt="Upload"
                             class="m-auto image"
                           />
-                          <div class="w-1/2 flex">
+                          <div class="w-1/2 flex m-auto">
                             <cropper
                               v-if="dialogcropimage"
                               ref="cropper"

@@ -89,6 +89,16 @@ const router = new VueRouter({
           },
         },
         {
+          path: "/admin/withdraw",
+          name: "Withdraw Admin",
+          meta: { title: "Admin" },
+          component: importComponent("WithdrawAdmin"),
+          beforeEnter: (to, from, next) => {
+            if (localStorage.getItem("id")) next();
+            else next("/login");
+          },
+        },
+        {
           path: "/event",
           name: "Event",
           meta: { title: "Event Dashboard" },

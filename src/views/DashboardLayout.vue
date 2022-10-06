@@ -286,6 +286,7 @@ export default {
         { title: "Genre", to: "/admin/genre", icon: "mdi-cube" },
         { title: "News", to: "/admin/news", icon: "mdi-newspaper" },
         { title: "City", to: "/admin/city", icon: "mdi-city" },
+        { title: "Data Withdraw", to: "/admin/withdraw", icon: "mdi-wallet" },
       ],
       listEO: [
         {

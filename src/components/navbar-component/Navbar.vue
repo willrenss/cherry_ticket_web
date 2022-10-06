@@ -1,7 +1,7 @@
 <template>
   <div class="font-helvetica antialiased">
     <nav class="flex items-center justify-between bg-background p-5">
-      <a href="https://cherryticket.com" class="flex items-center w-full">
+      <a href="https://ui.cherryticket.com" class="flex items-center w-full">
         <img
           src="@/assets/gambar/cherry_merah.png"
           class="mr-3 h-5 sm:h-12"

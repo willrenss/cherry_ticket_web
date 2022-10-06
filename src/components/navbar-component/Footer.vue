@@ -2,7 +2,7 @@
   <footer class="bg-cherry">
     <div class="flex justify-between p-5">
       <div class="text-white text-center">
-        <a href="https://cherryticket.com" class="flex">
+        <a href="https://ui.cherryticket.com" class="flex">
           <img
             src="@/assets/gambar/cherry_putih.png"
             class="mr-3 h-5 sm:h-12"
@@ -16,7 +16,7 @@
       </div>
       <div class="text-white m-auto">
         © 2021 Copyright:
-        <a class="text-white" href="https://cherryticket.com/"
+        <a class="text-white" href="https://ui.cherryticket.com/"
           >Cherry Ticket.</a
         >
         All Right Reserved

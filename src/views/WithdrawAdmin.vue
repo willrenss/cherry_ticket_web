@@ -1,16 +1,6 @@
 <template>
   <v-main class="bg-background">
     <v-card data-aos="zoom-in" class="m-10 rounded-lg">
-      <div class="relative max-w-xl px-4 py-2 text-gray-700">
-        <div class="flex flex-col h-full">
-          <div class="my-auto">
-            <div class="text-indigo text-lg opawithdraw-80">Saldo</div>
-            <div class="text-indigo text-4xl font-bold">
-              Rp. {{ formatPrice(income) }}
-            </div>
-          </div>
-        </div>
-      </div>
       <v-card-title>
         <v-text-field
           dense
@@ -24,15 +14,24 @@
         </v-text-field>
 
         <v-spacer></v-spacer>
-        <v-btn color="indigov" class="whitev--text" @click="showdialogt()"
-          ><v-icon left>mdi-wallet</v-icon>Withdraw</v-btn
+        <v-btn color="indigov" class="whitev--text" @click="exportshow()"
+          ><v-icon left>mdi-note</v-icon>Export Gained History</v-btn
         >
       </v-card-title>
       <v-data-table :headers="headers" :items="data" :search="search">
+        <template v-slot:[`item.EO`]="{ item }">
+          {{ item.eo.NAMA_EO }}
+        </template>
         <template v-slot:[`item.STATUS_WITHDRAW`]="{ item }">
           <v-chip outlined :color="warnacheck(item.STATUS_WITHDRAW)">{{
             item.STATUS_WITHDRAW
           }}</v-chip>
+        </template>
+        <template v-slot:[`item.TOTAL_WITHDRAW`]="{ item }">
+          Rp. {{ formatPrice(item.TOTAL_WITHDRAW) }}
+        </template>
+        <template v-slot:[`item.TGL_WITHDRAW`]="{ item }">
+          {{ formatTanggal(item.TGL_WITHDRAW) }}
         </template>
         <template v-slot:[`item.actions`]="{ item }">
           <v-tooltip bottom>
@@ -43,22 +42,75 @@
                 class="mr-2"
                 v-bind="attrs"
                 v-on="on"
-                @click="showdialoge(item)"
+                @click="
+                  item.STATUS_WITHDRAW == 'Sended'
+                    ? pending(item.ID_WITHDRAW)
+                    : sended(item.ID_WITHDRAW)
+                "
               >
-                <v-icon color="indigov">mdi-pencil</v-icon>
+                <v-icon
+                  :color="
+                    item.STATUS_WITHDRAW == 'Sended' ? 'dangerv' : 'success'
+                  "
+                  >mdi-brightness-1</v-icon
+                >
               </v-btn>
             </template>
-            <span>Edit withdraw</span>
+            <span v-if="item.STATUS_WITHDRAW == 'Sended'"> Pending</span>
+            <span v-if="item.STATUS_WITHDRAW != 'Sended'"> Sended</span>
           </v-tooltip>
-        </template>
-        <template v-slot:[`item.TOTAL_WITHDRAW`]="{ item }">
-          Rp. {{ formatPrice(item.JUMLAH_WITHDRAW) }}
-        </template>
-        <template v-slot:[`item.TGL_WITHDRAW`]="{ item }">
-          {{ formatTanggal(item.TGL_WITHDRAW) }}
         </template>
       </v-data-table>
     </v-card>
+    <v-dialog v-model="dialogexport" max-width="1000px">
+      <v-card>
+        <v-toolbar color="indigov text-lg font-bold" dark>
+          {{ judul }}
+        </v-toolbar>
+        <v-card-text>
+          <v-form ref="export" lazy-validation>
+            <v-row class="mt-10">
+              <p class="text-indigo text-xl font-semibold opacity-80 px-3">
+                Choose range for get export withdraw history:
+              </p>
+            </v-row>
+            <v-row class="px-3">
+              <v-text-field
+                label="Start Date ~ End Date"
+                :value="dateRangeText"
+                placeholder="Start Date ~ End Date"
+                outlined
+                :rules="daterules"
+                readonly
+                color="indigov"
+              ></v-text-field>
+            </v-row>
+            <v-row class="px-3">
+              <v-date-picker
+                scrollable
+                dark
+                header-color="indigov"
+                v-model="datenews"
+                no-title
+                :show-current="false"
+                color="cherryv"
+                @change="dateinit(datenews)"
+                full-width
+                range
+              ></v-date-picker>
+            </v-row>
+          </v-form>
+        </v-card-text>
+        <v-card-actions class="justify-end">
+          <v-btn color="indigov" class="whitev--text" @click="tutup()"
+            >Close</v-btn
+          >
+          <v-btn class="whitev--text" color="cherryv" @click="exportwithdraw()"
+            >Export</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="dialoghapus" persistent max-width="600px">
       <v-card>
         <v-toolbar color="indigov text-lg font-bold" dark>{{
@@ -230,6 +282,8 @@
 export default {
   data() {
     return {
+      datenews: [],
+      momentdate: [],
       judul: "",
       income: 0,
       cekaction: false,
@@ -252,6 +306,10 @@ export default {
           (!!v && parseInt(this.income) >= this.form.JUMLAH_WITHDRAW) ||
           "You balance not enough",
       ],
+      daterules: [
+        (v) => !!v || "This field is required",
+        (v) => (!!v && this.datenews[1] != null) || "Select one more date",
+      ],
       show1: false,
       show2: false,
       snackbar: false,
@@ -260,6 +318,7 @@ export default {
       total_withdraw: 0,
       uploadimage: null,
       dilaog: false,
+      dialogexport: false,
       dialoghapus: false,
       gambar: null,
       data: [],
@@ -275,6 +334,10 @@ export default {
       },
       headers: [
         {
+          text: "Event Organizer",
+          value: "EO",
+        },
+        {
           text: "Account Name",
           value: "NAMA_TUJUAN",
         },
@@ -283,11 +346,94 @@ export default {
         { text: "Method Payment", value: "METHOD_PAYMENT" },
         { text: "Account Number", value: "NOMOR_TRANSAKSI" },
         { text: "Status Withdraw", value: "STATUS_WITHDRAW" },
-        { text: "Actions", value: "Action" },
+        { text: "Actions", value: "actions" },
       ],
     };
   },
   methods: {
+    exportwithdraw() {
+      if (this.$refs.export.validate()) {
+        var url =
+          this.$api +
+          "/laporanwithdrawadmin/" +
+          this.datenews[0] +
+          "/" +
+          this.datenews[1];
+        this.$http
+          .get(url, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            responseType: "blob",
+          })
+          .then((response) => {
+            var bambang =
+              this.$api +
+              "/laporanwithdrawadmin/" +
+              this.datenews[0] +
+              "/" +
+              this.datenews[1];
+            window.open(bambang);
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            document.body.appendChild(link);
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
+      }
+    },
+    sended(id) {
+      var url = this.$api + "/withdraw/" + id;
+      let newData = {
+        status: "Sended",
+      };
+      this.$http
+        .put(url, newData, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.error_message = response.data.message;
+          this.color = "success";
+          this.snackbar = true;
+          this.readData();
+        })
+        .catch((error) => {
+          this.error_message = error.response.data.message;
+          this.color = "dangerv";
+          this.snackbar = true;
+        });
+    },
+    exportshow() {
+      this.dialogexport = true;
+      this.judul = "Gained History";
+    },
+    pending(id) {
+      var url = this.$api + "/withdraw/" + id;
+      let newData = {
+        status: "Pending",
+      };
+      this.$http
+        .put(url, newData, {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        })
+        .then((response) => {
+          this.error_message = response.data.message;
+          this.color = "success";
+          this.snackbar = true;
+          this.readData();
+        })
+        .catch((error) => {
+          this.error_message = error.response.data.message;
+          this.color = "dangerv";
+          this.snackbar = true;
+        });
+    },
     tambah() {
       if (this.$refs.form.validate()) {
         var url = this.$api + "/withdraw";
@@ -338,10 +484,14 @@ export default {
     tutup() {
       this.dialogform = false;
       this.form = [];
+      this.datenews = [];
+      this.momentdate = [];
       this.show1 = false;
       this.change = false;
       this.show2 = false;
+      this.dialogexport = false;
       this.$refs.form.reset();
+      this.$refs.export.reset();
       this.uploadimage = null;
     },
     showdialogh(id) {
@@ -384,7 +534,7 @@ export default {
           this.income = response.data.data.sisa_saldo;
         });
 
-      var url = this.$api + "/withdrawevent/" + localStorage.getItem("ideo");
+      var url = this.$api + "/withdraw";
       this.$http
         .get(url, {
           headers: {
@@ -394,6 +544,23 @@ export default {
         .then((response) => {
           this.data = response.data.data;
         });
+    },
+    dateinit(value) {
+      if (this.$moment(value[1]).isBefore(value[0])) {
+        var temp;
+        temp = value[1];
+        this.datenews[1] = this.datenews[0];
+        this.datenews[0] = temp;
+        this.momentdate = [
+          this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY"),
+          this.$moment(this.datenews[1]).format("dddd, MMMM D YYYY"),
+        ];
+      } else {
+        this.momentdate = [
+          this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY"),
+          this.$moment(this.datenews[1]).format("dddd, MMMM D YYYY"),
+        ];
+      }
     },
     formatPrice(value) {
       return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.");
@@ -410,10 +577,10 @@ export default {
     this.readData();
   },
   computed: {
-    buttonText() {
-      return this.form.GAMBAR_KOTA
-        ? this.form.GAMBAR_KOTA.name
-        : "Select a photo or drag and drop";
+    dateRangeText() {
+      return this.datenews.length == 1
+        ? this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY")
+        : this.momentdate.join(" ~ ");
     },
   },
 };

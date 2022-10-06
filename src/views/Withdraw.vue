@@ -24,8 +24,11 @@
         </v-text-field>
 
         <v-spacer></v-spacer>
-        <v-btn color="indigov" class="whitev--text" @click="showdialogt()"
+        <v-btn color="cherryv" class="whitev--text" @click="showdialogt()"
           ><v-icon left>mdi-wallet</v-icon>Withdraw</v-btn
+        >
+        <v-btn color="indigov" class="whitev--text ml-3" @click="exportshow()"
+          ><v-icon left>mdi-note</v-icon>Withdraw History</v-btn
         >
       </v-card-title>
       <v-data-table :headers="headers" :items="data" :search="search">
@@ -59,55 +62,51 @@
         </template>
       </v-data-table>
     </v-card>
-    <v-dialog v-model="dialoghapus" persistent max-width="600px">
+    <v-dialog v-model="dialogexport" max-width="1000px">
       <v-card>
-        <v-toolbar color="indigov text-lg font-bold" dark>{{
-          judul
-        }}</v-toolbar>
+        <v-toolbar color="indigov text-lg font-bold" dark>
+          {{ judul }}
+        </v-toolbar>
         <v-card-text>
-          <div class="w-full h-full flex items-center p-10">
-            <div class="m-auto">
-              <v-icon color="dangerv" class="w-full my-3" size="80px">
-                mdi-alert-circle-outline</v-icon
-              >
-              <h2 class="text-indigo text-3xl mt-3 font-bold">
-                Are You Sure Delete This Data?
-              </h2>
-            </div>
-          </div>
+          <v-form ref="export" lazy-validation>
+            <v-row class="mt-10">
+              <p class="text-indigo text-xl font-semibold opacity-80 px-3">
+                Choose range for get export withdraw history:
+              </p>
+            </v-row>
+            <v-row class="px-3">
+              <v-text-field
+                label="Start Date ~ End Date"
+                :value="dateRangeText"
+                placeholder="Start Date ~ End Date"
+                outlined
+                :rules="daterules"
+                readonly
+                color="indigov"
+              ></v-text-field>
+            </v-row>
+            <v-row class="px-3">
+              <v-date-picker
+                scrollable
+                dark
+                header-color="indigov"
+                v-model="datenews"
+                no-title
+                :show-current="false"
+                color="cherryv"
+                @change="dateinit(datenews)"
+                full-width
+                range
+              ></v-date-picker>
+            </v-row>
+          </v-form>
         </v-card-text>
         <v-card-actions class="justify-end">
-          <v-btn
-            height="30px"
-            color="indigov"
-            class="whitev--text"
-            @click="dialoghapus = false"
+          <v-btn color="indigov" class="whitev--text" @click="tutup()"
             >Close</v-btn
           >
-          <v-btn
-            height="30px"
-            class="whitev--text"
-            color="cherryv"
-            @click="hapus()"
-            >Delete</v-btn
-          >
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-    <v-dialog v-model="dialoggambar" persistent max-width="600px">
-      <v-card>
-        <v-toolbar color="indigov text-lg font-bold" dark
-          >Picture withdraw</v-toolbar
-        >
-        <v-card-text>
-          <v-img :src="image" class="mx-auto mt-10" max-width="400px"></v-img>
-        </v-card-text>
-        <v-card-actions class="justify-end">
-          <v-btn
-            color="indigov"
-            class="whitev--text"
-            @click="dialoggambar = false"
-            >Close</v-btn
+          <v-btn class="whitev--text" color="cherryv" @click="exportwithdraw()"
+            >Export</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -232,6 +231,8 @@ export default {
     return {
       judul: "",
       income: 0,
+      datenews: [],
+      momentdate: [],
       cekaction: false,
       image: "",
       error_message: "",
@@ -252,6 +253,10 @@ export default {
           (!!v && parseInt(this.income) >= this.form.JUMLAH_WITHDRAW) ||
           "You balance not enough",
       ],
+      daterules: [
+        (v) => !!v || "This field is required",
+        (v) => (!!v && this.datenews[1] != null) || "Select one more date",
+      ],
       show1: false,
       show2: false,
       snackbar: false,
@@ -259,6 +264,7 @@ export default {
       search: null,
       total_withdraw: 0,
       uploadimage: null,
+      dialogexport: false,
       dilaog: false,
       dialoghapus: false,
       gambar: null,
@@ -287,6 +293,64 @@ export default {
     };
   },
   methods: {
+    exportwithdraw() {
+      if (this.$refs.export.validate()) {
+        var url =
+          this.$api +
+          "/laporanwithdraw/" +
+          localStorage.getItem("ideo") +
+          "/" +
+          this.datenews[0] +
+          "/" +
+          this.datenews[1];
+        this.$http
+          .get(url, {
+            headers: {
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            responseType: "blob",
+          })
+          .then((response) => {
+            var bambang =
+              this.$api +
+              "/laporanwithdraw/" +
+              localStorage.getItem("ideo") +
+              "/" +
+              this.datenews[0] +
+              "/" +
+              this.datenews[1];
+            window.open(bambang);
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement("a");
+            link.href = url;
+            document.body.appendChild(link);
+          })
+          .catch((error) => {
+            console.log(error.response.data.message);
+          });
+      }
+    },
+    exportshow() {
+      this.dialogexport = true;
+      this.judul = "Withdraw History";
+    },
+    dateinit(value) {
+      if (this.$moment(value[1]).isBefore(value[0])) {
+        var temp;
+        temp = value[1];
+        this.datenews[1] = this.datenews[0];
+        this.datenews[0] = temp;
+        this.momentdate = [
+          this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY"),
+          this.$moment(this.datenews[1]).format("dddd, MMMM D YYYY"),
+        ];
+      } else {
+        this.momentdate = [
+          this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY"),
+          this.$moment(this.datenews[1]).format("dddd, MMMM D YYYY"),
+        ];
+      }
+    },
     tambah() {
       if (this.$refs.form.validate()) {
         var url = this.$api + "/withdraw";
@@ -339,8 +403,12 @@ export default {
       this.form = [];
       this.show1 = false;
       this.change = false;
+      this.datenews = [];
+      this.momentdate = [];
       this.show2 = false;
+      this.dialogexport = false;
       this.$refs.form.reset();
+      this.$refs.export.reset();
       this.uploadimage = null;
     },
     showdialogh(id) {
@@ -409,10 +477,10 @@ export default {
     this.readData();
   },
   computed: {
-    buttonText() {
-      return this.form.GAMBAR_KOTA
-        ? this.form.GAMBAR_KOTA.name
-        : "Select a photo or drag and drop";
+    dateRangeText() {
+      return this.datenews.length == 1
+        ? this.$moment(this.datenews[0]).format("dddd, MMMM D YYYY")
+        : this.momentdate.join(" ~ ");
     },
   },
 };
