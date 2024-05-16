@@ -3,7 +3,7 @@
     <div
       class="background bg-no-repeat bg-left-top flex h-screen mt-5"
       style="
-        background-image: url('https://cherryticket.com/background-home2.png');
+        background-image: url('/background-2.png');
       "
     >
       <div class="m-auto items-center">

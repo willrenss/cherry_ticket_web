@@ -1,6 +1,6 @@
 <template>
   <div class="background h-full flex bg-no-repeat bg-right-bottom" style="
-      background-image: url('https://cherryticket.com/background-product.png');
+      background-image: url('/background-5.png');
     ">
     <div class="m-auto">
       <div class="flex flex-col sm:flex-row ml-10 items-center">

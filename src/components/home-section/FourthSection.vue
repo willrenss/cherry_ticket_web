@@ -4,7 +4,7 @@ AIzaSyA1MgLuZuyqR_OGY3ob3M52N46TDBRI_9k
   <div
     class="background h-screen bg-no-repeat bg-right-bottom flex h-fit"
     style="
-      background-image: url('https://cherryticket.com/background-home4.png');
+      background-image: url('/background-4.png');
     "
   >
     <div class="container m-auto">

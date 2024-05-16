@@ -4,7 +4,7 @@
     <div
       class="bg-background bg-no-repeat flex h-screen bg-right-bottom py-10"
       style="
-        background-image: url('https://cherryticket.com/background-product.png');
+        background-image: url('/background-5.png');
       "
     >
       <div class="flex w-full">

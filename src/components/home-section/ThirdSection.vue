@@ -66,7 +66,7 @@ export default {
 <style scoped>
 .section-offer {
   background: #f2f5f7;
-  background-image: url("https://cherryticket.com/background-home3.png");
+  background-image: url("/background-3.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: left;
