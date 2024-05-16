@@ -334,6 +334,7 @@ export default {
     onFileChanged(e) {
       this.form.GAMBAR_GENRE = e.target.files[0];
       this.uploadimage = URL.createObjectURL(e.target.files[0]);
+      console.log(this.form.GAMBAR_GENRE);
     },
     tambah() {
       if (this.$refs.form.validate()) {

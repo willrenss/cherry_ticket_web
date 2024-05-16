@@ -8,7 +8,7 @@
       "
     >
       <div class="flex w-full">
-        <div data-aos="zoom-in" class="mx-auto">
+        <div data-aos="zoom-in" class="m-auto">
           <div class="m-auto w-5/6 h-fit flex flex-row">
             <div class="w-3/5 bg-cherrylight px-10 py-5 rounded-l-2xl">
               <h1 class="text-cherry font-bold text-right text-5xl">
@@ -99,9 +99,9 @@
               </v-form>
 
               <div class="flex flex-col w-full px-10">
-                <a href="" class="text-xs font-medium mb-3">
+                <a @click="dialoghapus = true" class="text-xs font-medium mb-3">
                   By signing up, you confirm that you accept our <br />
-                  <span class="text-cherry font-bold">Terms of Use</span>
+                  <span class="text-cherry font-bold"> Terms of Use</span>
                   and
                   <span class="text-cherry font-bold"> Privacy Policy.</span>
                 </a>
@@ -127,6 +127,129 @@
         </div>
       </div>
     </div>
+    <v-dialog v-model="dialoghapus" persistent max-width="800px">
+      <v-card>
+        <v-toolbar color="indigov text-lg font-bold" dark
+          >Terms of Use and Privacy Policy</v-toolbar
+        >
+        <v-card-text>
+          <p class="mt-10">
+            1.Event Organizer who have created an account on our Site can create
+            Events subject to the terms and conditions in these Terms of Use,
+            moral norms, public order, and applicable laws and regulations.
+          </p>
+          <p>
+            2.The Event Organzier is obliged to provide us free of charge
+            without any form of compensation all information and data regarding
+            the Event with correct data and information. valid, legal, legal,
+            and accurate, and does not violate the intellectual property rights
+            of other parties in any form. Event Organizer are prohibited from
+            making descriptions of events that violate the provisions of laws
+            and regulations, public order, morality, and applicable norms, such
+            as but not limited to a provocation against ethnicity, religion,
+            race, and inter-group (SARA) and specific groups, extortion,
+            pornography, vulgarity, cornering certain people or groups, threats,
+            insults, defamation, violence, scaring, misleading, lying, calls
+            that cause hatred or divisive hostility, and calls to violate
+            applicable laws.
+          </p>
+          <p>
+            3.Events that the Event Organzier holds are prohibited from
+            containing elements, either in the form of naming, the content of
+            the event, activities that are in the event, the place of the event,
+            and/or all forms that include elements of the event that are related
+            and become an interrelated entity. in the event, either directly or
+            indirectly, which includes elements in the form of violations of the
+            provisions of laws and regulations, money laundering, public order,
+            decency, and applicable norms, such as but not limited to forms of
+            gambling, prostitution, provocation against ethnicity, religion,
+            race, and inter-group (SARA) and certain groups, extortion,
+            pornography, threats, insults, defamation, violence, scaring,
+            misleading, lying, calls that cause hatred or divisive hostility,
+            all of whose activities only in the form of collecting money and
+            goods without any other activities, and calls to subscriber
+            applicable law.
+          </p>
+          <p>
+            4.Event Organzier represents and warrants to Us that: All
+            information and data provided to us, whether in the form of posters,
+            pictures, words, terms, and/or all other forms of creation which are
+            intellectual property rights, are the rights and authorities of the
+            Event Organzier to be used both economically and non-commercially
+            for the benefit of the Event. by Event Organizer; The event is held
+            in the right, property, ownership, and full authority and/or a power
+            of attorney with the receipt of all forms of approval required for
+            the Event Organzier in representing the organization of the Event;
+            Organizing the Event along with its contents and the Event
+            Organzier's submission to this agreement does not violate any
+            provisions, whether based on laws and regulations, other agreements,
+            court orders, government agency orders, and any obligations where
+            the Event Organzier is bound to comply with these provisions; The
+            Event Organzier is fully responsible for the entire Event including
+            its contents, its side or elements that are related and become a
+            single entity either directly or indirectly at the Event does not
+            violate these Terms of Use, laws, and regulations, immorality,
+            public order, intellectual property rights of parties other and
+            other provisions that must be complied with; The Event Organzier has
+            obtained all forms of licensing, approval, recommendation, and/or
+            all other forms of documents in the implementation of the Event
+            being held; The contents of the Event, both in the form of
+            activities, activity fillers, types of activities, types of
+            activities, Event activities including types and types of Tickets,
+            and all forms related to the contents of the Event created and
+            filled in the Cherry Ticket system are true and following the
+            existing reality. In the event of a change regarding the Event in
+            any form, including but not limited to the place, type, time,
+            activity, commercial to non-commercial nature and vice versa, the
+            type and classification of Tickets, and other changes, the Event
+            Organzier is obliged to notify Cherry Ticket and/or the Buyer.
+            Tickets to such changes
+          </p>
+          <p>
+            5.The Event Organzier hereby agrees to take full responsibility and
+            release and release LOKET from all forms of responsibility,
+            compensation, claims, claims, claims for rights, requests for rights
+            from any party, and/or all forms of obligations that must be borne
+            as a result of violating these Terms of Use. , violations of laws
+            and regulations, violations of social norms, immorality, public
+            order, and/or violations of the rights of other parties who feel
+            their rights have been violated as a result of the implementation of
+            the Event and/or violations of prohibitions, statements and
+            guarantees, obligations and all forms of provisions. of these Terms
+            of Use.
+          </p>
+          <p>
+            6.The Event Organzier is fully responsible for all permits,
+            approvals, dispensations, orders, licenses, taxes, levies, and
+            approvals for the use of intellectual property rights and/or
+            documents in any form required under the provisions of laws and
+            regulations including government policies, which are necessary for
+            the sustainability and organizing the event.
+          </p>
+          <p>
+            7.The Event Organzier hereby agrees and agrees that LOKET has full
+            rights and authority based on our policies, to refuse, delete, not
+            process, blacklist input, block, unilaterally stop cooperation,
+            demand compensation, demand various rights to recover rights that
+            have been violated and/or by methods and methods that We deem
+            necessary to handle any Event that We deem to have violated these
+            Terms of Use, committed a criminal act, violated the provisions of
+            laws and regulations, public order, immorality, fraud, abuse,
+            negligence, omission and/or based on our policies that can be
+            accounted for.
+          </p>
+        </v-card-text>
+        <v-card-actions class="justify-end">
+          <v-btn
+            height="30px"
+            color="indigov"
+            class="whitev--text"
+            @click="dialoghapus = false"
+            >Close</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <support-dialog
       :color="color"
       :progress="load"
@@ -155,6 +278,7 @@ export default {
       color: "",
       error_message: "",
       show1: false,
+      dialoghapus: false,
       cpassword: null,
       valid: false,
       snackbar: false,

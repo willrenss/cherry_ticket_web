@@ -7,7 +7,7 @@ function importComponent(path) {
 }
 
 const router = new VueRouter({
-  mode: "hash",
+  mode: "history",
   routes: [
     {
       path: "/dashboard",

@@ -1,10 +1,7 @@
 <template>
-  <div
-    class="background h-full flex bg-no-repeat bg-right-bottom"
-    style="
+  <div class="background h-full flex bg-no-repeat bg-right-bottom" style="
       background-image: url('https://cherryticket.com/background-product.png');
-    "
-  >
+    ">
     <div class="m-auto">
       <div class="flex flex-col sm:flex-row ml-10 items-center">
         <div data-aos="fade-left" class="px-10 w-1/2 hidden sm:block">
@@ -23,10 +20,12 @@
           </div>
           <div data-aos="fade-left" class="flex flex-row p-1">
             <div class="py-8">
-              <img src="@/assets/gambar/apple.png" class="h-16" alt="home" />
+              <a href="https://www.notion.so/cherryticket/Cherry-Ticket-Mobile-Device-d8505ed0c70945d49145c92f00b4e89c">
+                <img src="@/assets/gambar/apple.png" class="h-16" alt="home" /></a>
             </div>
             <div class="py-8">
-              <img src="@/assets/gambar/android.png" alt="home" class="h-16" />
+              <a href="https://www.notion.so/cherryticket/Cherry-Ticket-Mobile-Device-d8505ed0c70945d49145c92f00b4e89c">
+                <img src="@/assets/gambar/android.png" alt="home" class="h-16" /></a>
             </div>
           </div>
         </div>
